@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Список покупок</string>
+    <string name="name_item_menu_add">Додати</string>
+    <string name="name_item_menu_sort">Сортувати</string>
+    <string name="name_item_menu_clear_list">Очистити список</string>
+    <string name="name_item_menu_new_list">Новий список</string>
+    <string name="label_item_activity">Новий продукт</string>
+    <string name="name_item_sortmenu_az">А-Я</string>
+    <string name="name_item_sortmenu_za">Я-А</string>
+    <string name="name_item_sortmenu_bought">Куплені</string>
+    <string name="name_item_sortmenu_not_bought">Не куплені</string>
 </resources>
