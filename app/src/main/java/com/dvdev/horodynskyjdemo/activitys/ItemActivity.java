@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Item;
 
 public class ItemActivity extends AppCompatActivity {
     private String INTENT_VALUE;
+    private boolean add = false;
 
     private EditText editNameItem;
-    private Button buttonActionCanceNewItem;
+    private TextView messageAboutEmpty;
     private Button buttonActionAddNewOrEditedNewItem;
 
     @Override
@@ -26,10 +28,12 @@ public class ItemActivity extends AppCompatActivity {
 
         INTENT_VALUE = getIntent().getStringExtra(MainActivity.KEY_ACTION);
         if (INTENT_VALUE.equals(MainActivity.ATTRIBUTE_INTENT_ADD)) {
+            add = true;
             setTitle("Новий продукт");
             buttonActionAddNewOrEditedNewItem.setText("Додати");
 
         } else if(INTENT_VALUE.equals(MainActivity.ATTRIBUTE_INTENT_EDIT)) {
+            add = false;
             setTitle("Редагування продукту");
             buttonActionAddNewOrEditedNewItem.setText("Редагувати");
 
@@ -37,8 +41,9 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void initializationGlobalObject() {
+        messageAboutEmpty = (TextView) findViewById(R.id.messageAboutEmpty);
+        messageAboutEmpty.setVisibility(View.GONE);
         editNameItem = (EditText) findViewById(R.id.editNameItem);
-        buttonActionCanceNewItem = (Button) findViewById(R.id.cancel_action_new_item);
         buttonActionAddNewOrEditedNewItem = (Button) findViewById(R.id.confirm_action_new_or_edited_item);
     }
 
@@ -47,8 +52,15 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void actionAddNewOrEditedItem(View view) {
-        MainActivity.data.add(new Item(editNameItem.getText().toString(), false));
-        MainActivity.updateList();
-        finish();
+        if (!editNameItem.getText().toString().equals("")) {
+            if (add)
+                MainActivity.data.add(new Item(editNameItem.getText().toString(), false));
+            else
+                MainActivity.data.get(Integer.parseInt(MainActivity.ATTRIBUTE_POSITION_FOR_EDIT)).
+                        setName(editNameItem.getText().toString());
+            MainActivity.updateList();
+            finish();
+        } else
+            messageAboutEmpty.setVisibility(View.VISIBLE);
     }
 }

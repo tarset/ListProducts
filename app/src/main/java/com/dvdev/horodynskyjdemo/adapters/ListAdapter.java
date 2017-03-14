@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.activitys.MainActivity;
@@ -38,7 +40,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null)
             view = layoutInflater.inflate(R.layout.item, parent, false);
@@ -55,7 +57,6 @@ public class ListAdapter extends BaseAdapter {
             nameItem.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         stateItem.setChecked(item.isPruchased());
 
-        //TODO: Відрефакторити цих слухачів
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +70,9 @@ public class ListAdapter extends BaseAdapter {
 
         nameItem.setOnClickListener(onClickListener);
         stateItem.setOnClickListener(onClickListener);
+
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.item);
+        linearLayout.setLongClickable(true);
         return view;
     }
 
@@ -79,4 +83,6 @@ public class ListAdapter extends BaseAdapter {
     public void updateResults() {
         notifyDataSetChanged();
     }
+
+
 }

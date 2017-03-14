@@ -11,4 +11,6 @@
     <string name="name_item_sortmenu_not_bought">Не куплені</string>
     <string name="hint_edittext_in_activity_item">Назва продукту</string>
     <string name="name_button_acncel_action_new_item">Відмінити</string>
+    <string name="name_item_edit_context_menu">Редагувати</string>
+    <string name="name_item_delete_context_menu">Видалити</string>
 </resources>

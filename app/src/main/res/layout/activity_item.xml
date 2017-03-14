@@ -17,6 +17,13 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_edittext_in_activity_item"
         android:inputType="text" />
+    <TextView
+        android:id="@+id/messageAboutEmpty"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:text="Не залишайте поле введення пустим!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:weightSum="1"
         android:orientation="horizontal"
