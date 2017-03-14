@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.dvdev.horodynskyjdemo.R;
+import com.dvdev.horodynskyjdemo.objects.Item;
 
 public class ItemActivity extends AppCompatActivity {
     private String INTENT_VALUE;
@@ -46,5 +47,8 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void actionAddNewOrEditedItem(View view) {
+        MainActivity.data.add(new Item(editNameItem.getText().toString(), false));
+        MainActivity.updateList();
+        finish();
     }
 }
