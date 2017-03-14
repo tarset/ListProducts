@@ -18,6 +18,7 @@ import com.dvdev.horodynskyjdemo.objects.Item;
 import com.dvdev.horodynskyjdemo.sotrs.AZSort;
 import com.dvdev.horodynskyjdemo.sotrs.NotPurchasedSort;
 import com.dvdev.horodynskyjdemo.sotrs.PurchasedSort;
+import com.dvdev.horodynskyjdemo.sotrs.RevomeActionSelectionItem;
 import com.dvdev.horodynskyjdemo.sotrs.ZASort;
 
 import java.lang.reflect.Array;
@@ -70,14 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(KEY_ACTION, ATTRIBUTE_INTENT_ADD);
                 startActivity(intent);
                 break;
-            case R.id.menu_action_sort:
-
-                break;
             case R.id.menu_action_clear_list:
-
+                Collections.sort(data, new RevomeActionSelectionItem());
+                updateList();
                 break;
             case R.id.menu_action_new_list:
-
+                data = new ArrayList<>();
+                updateList();
                 break;
             case R.id.sort_az:
                 Collections.sort(data, new AZSort());
