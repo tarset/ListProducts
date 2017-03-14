@@ -56,7 +56,7 @@ public class ListAdapter extends BaseAdapter {
         stateItem.setChecked(item.isPruchased());
 
         //TODO: Відрефакторити цих слухачів
-        nameItem.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MainActivity.data.get(position).isPruchased())
@@ -65,18 +65,10 @@ public class ListAdapter extends BaseAdapter {
                     MainActivity.data.get(position).setPruchased(true);
                 updateResults();
             }
-        });
+        };
 
-        stateItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MainActivity.data.get(position).isPruchased())
-                    MainActivity.data.get(position).setPruchased(false);
-                else
-                    MainActivity.data.get(position).setPruchased(true);
-                updateResults();
-            }
-        });
+        nameItem.setOnClickListener(onClickListener);
+        stateItem.setOnClickListener(onClickListener);
         return view;
     }
 

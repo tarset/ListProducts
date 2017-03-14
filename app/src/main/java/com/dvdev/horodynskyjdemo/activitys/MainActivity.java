@@ -15,8 +15,16 @@ import android.widget.Toast;
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.ListAdapter;
 import com.dvdev.horodynskyjdemo.objects.Item;
+import com.dvdev.horodynskyjdemo.sotrs.AZSort;
+import com.dvdev.horodynskyjdemo.sotrs.NotPurchasedSort;
+import com.dvdev.horodynskyjdemo.sotrs.PurchasedSort;
+import com.dvdev.horodynskyjdemo.sotrs.ZASort;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<Item> data;
@@ -70,6 +78,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_action_new_list:
 
+                break;
+            case R.id.sort_az:
+                Collections.sort(data, new AZSort());
+                updateList();
+                break;
+            case R.id.sort_za:
+                Collections.sort(data, new ZASort());
+                updateList();
+                break;
+            case R.id.sort_purchased:
+                Collections.sort(data, new PurchasedSort());
+                updateList();
+                break;
+            case R.id.sort_not_purchased:
+                Collections.sort(data, new NotPurchasedSort());
+                updateList();
                 break;
         }
         return super.onOptionsItemSelected(item);

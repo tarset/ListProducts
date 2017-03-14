@@ -16,18 +16,22 @@
         <menu>
             <group>
                 <item
+                    android:id="@+id/sort_az"
                     android:orderInCategory="1"
                     android:showAsAction="never"
                     android:title="@string/name_item_sortmenu_az" />
                 <item
+                    android:id="@+id/sort_za"
                     android:orderInCategory="2"
                     android:showAsAction="never"
                     android:title="@string/name_item_sortmenu_za" />
                 <item
+                    android:id="@+id/sort_purchased"
                     android:orderInCategory="3"
                     android:showAsAction="never"
                     android:title="@string/name_item_sortmenu_bought" />
                 <item
+                    android:id="@+id/sort_not_purchased"
                     android:orderInCategory="4"
                     android:showAsAction="never"
                     android:title="@string/name_item_sortmenu_not_bought" />
