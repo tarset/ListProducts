@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_item"
     android:layout_width="match_parent"
@@ -10,4 +11,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.dvdev.horodynskyjdemo.activitys.ItemActivity">
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/editNameItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_edittext_in_activity_item"
+        android:inputType="text" />
+    <LinearLayout
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/cancel_action_new_item"
+            android:onClick="actionCancelNewItem"
+            android:textColor="@android:color/white"
+            android:text="@string/name_button_acncel_action_new_item"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/confirm_action_new_or_edited_item"
+            android:onClick="actionAddNewOrEditedItem"
+            android:textColor="@android:color/white"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

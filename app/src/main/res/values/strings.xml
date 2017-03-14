@@ -9,4 +9,6 @@
     <string name="name_item_sortmenu_za">Я-А</string>
     <string name="name_item_sortmenu_bought">Куплені</string>
     <string name="name_item_sortmenu_not_bought">Не куплені</string>
+    <string name="hint_edittext_in_activity_item">Назва продукту</string>
+    <string name="name_button_acncel_action_new_item">Відмінити</string>
 </resources>
