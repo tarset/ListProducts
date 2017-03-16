@@ -13,4 +13,22 @@
     <string name="name_button_acncel_action_new_item">Відмінити</string>
     <string name="name_item_edit_context_menu">Редагувати</string>
     <string name="name_item_delete_context_menu">Видалити</string>
+    <string name="add_test_data_in_listview">Додати тестові дані</string>
+    <string name="text_error_empty_edittext">Не залишайте поле введення пустим!</string>
+    <string name="label_activity_new_product">Новий продукт</string>
+    <string name="text_button_for_added_new_product">Додати</string>
+    <string name="label_activity_edit_product">Редагування продукту</string>
+    <string name="text_button_for_edit_product">Редагувати</string>
+
+    <string name="type_method_sort_az">TYPE_METHOD_SORT_AZ</string>
+    <string name="type_method_sort_za">TYPE_METHOD_SORT_ZA</string>
+    <string name="type_method_sort_purchased">TYPE_METHOD_SORT_PURCHASED</string>
+    <string name="type_method_sort_not_purchased">TYPE_METHOD_SORT_NOT_PURCHASED</string>
+    <string name="type_method_sort_remote_all_selection_item_in_listview">TYPE_METHOD_SORT_REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW</string>
+
+    <string name="name_action_for_intent">action</string>
+    <string name="name_position_for_intent">position</string>
+    <string name="value_action_add_for_intent">add</string>
+    <string name="value_action_edit_for_intent">edit</string>
+
 </resources>

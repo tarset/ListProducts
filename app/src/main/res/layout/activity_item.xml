@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.dvdev.horodynskyjdemo.activitys.ItemActivity">
+    tools:context="com.dvdev.horodynskyjdemo.activitys.CreatingEditingItemListViewActivity">
 
     <EditText
         android:id="@+id/editNameItem"
@@ -21,7 +21,7 @@
         android:id="@+id/messageAboutEmpty"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
-        android:text="Не залишайте поле введення пустим!"
+        android:text="@string/text_error_empty_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

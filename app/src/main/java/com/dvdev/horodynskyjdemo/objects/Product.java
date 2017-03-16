@@ -1,10 +1,13 @@
 package com.dvdev.horodynskyjdemo.objects;
 
-public class Item {
+/**
+ * Об'єкт даних для пункта у ListView, зберігає назву та стан CheckBox'а
+ */
+public class Product {
     private String name = "";
     private boolean pruchased = false;
 
-    public Item(String name, boolean pruchased) {
+    public Product(String name, boolean pruchased) {
         this.name = name;
         this.pruchased = pruchased;
     }
