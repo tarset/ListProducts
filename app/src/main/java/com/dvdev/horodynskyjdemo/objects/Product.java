@@ -1,7 +1,7 @@
 package com.dvdev.horodynskyjdemo.objects;
 
 /**
- * Об'єкт даних для пункта у ListView, зберігає назву та стан CheckBox'а
+ * Об'єкт даних для пункта у ListView
  */
 public class Product {
     private String name = "";

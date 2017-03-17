@@ -1,29 +1,29 @@
 package com.dvdev.horodynskyjdemo.sotrs;
 
-import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
+import com.dvdev.horodynskyjdemo.resurses.TypeMethodSort;
 
 import java.util.Comparator;
 
 public class SortListControllers implements Comparator<Product> {
-    private int typeSort = 0;
+    private String typeSort = "";
 
-    public SortListControllers(int typeSort) {
+    public SortListControllers(String typeSort) {
         this.typeSort = typeSort;
     }
 
     @Override
     public int compare(Product o1, Product o2) {
         switch (typeSort) {
-            case R.string.type_method_sort_az:
+            case TypeMethodSort.AZ:
                 return sortAZ(o1, o2);
-            case R.string.type_method_sort_za:
+            case TypeMethodSort.ZA:
                 return sortZA(o1, o2);
-            case R.string.type_method_sort_purchased:
+            case TypeMethodSort.PURCHASED:
                 return sortPurchased(o1, o2);
-            case R.string.type_method_sort_not_purchased:
+            case TypeMethodSort.NOT_PURCHASED:
                 return sortNotPurchased(o1, o2);
-            case R.string.type_method_sort_remote_all_selection_item_in_listview:
+            case TypeMethodSort.REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW:
                 return RemoveActionSelectionItem(o1, o2);
         }
         return -1;

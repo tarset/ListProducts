@@ -1,9 +1,8 @@
 package com.dvdev.horodynskyjdemo.storage;
 
-import android.util.Log;
-
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.resurses.KeysForGenerationJson;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,37 +16,36 @@ public class ConservationAndObtainingData {
     private JSONArray dataStateItemList;
 
     public void setDataList(String s) {
-        if (!s.isEmpty())
-            JSONdeserialayzer(s);
+        if (!s.isEmpty()) jsonDeserialayzer(s);
     }
 
     public String saveDataList() {
-        JSONserialayzer();
+        jsonSerialayzer();
         return dataList.toString();
     }
 
-    private void JSONserialayzer() {
+    private void jsonSerialayzer() {
         products = new JSONObject();
         dataList = new JSONObject();
         dataNameItemList = new JSONArray();
         dataStateItemList = new JSONArray();
+
         for (int i = 0; i < Products.data.size(); i++) {
             dataNameItemList.add(i, Products.data.get(i).getName());
             dataStateItemList.add(i, Products.data.get(i).isPruchased());
         }
-        products.put("NameProducts", dataNameItemList);
-        products.put("StateProducts", dataStateItemList);
-        dataList.put("Products", products);
-        Log.d("JSON", dataList.toString());
+        products.put(KeysForGenerationJson.NAME_PRODUCT, dataNameItemList);
+        products.put(KeysForGenerationJson.STATE_PRODUCT, dataStateItemList);
+        dataList.put(KeysForGenerationJson.PRODUCT, products);
     }
 
-    private void JSONdeserialayzer(String s) {
+    private void jsonDeserialayzer(String s) {
         JSONParser parser = new JSONParser();
         try {
             dataList = (JSONObject) parser.parse(s);
-            products = (JSONObject) dataList.get("Products");
-            dataNameItemList = (JSONArray) products.get("NameProducts");
-            dataStateItemList = (JSONArray) products.get("StateProducts");
+            products = (JSONObject) dataList.get(KeysForGenerationJson.PRODUCT);
+            dataNameItemList = (JSONArray) products.get(KeysForGenerationJson.NAME_PRODUCT);
+            dataStateItemList = (JSONArray) products.get(KeysForGenerationJson.STATE_PRODUCT);
             for (int i = 0; i < dataNameItemList.size(); i++) {
                 Products.data.add(new Product((String) dataNameItemList.get(i), (Boolean) dataStateItemList.get(i)));
             }

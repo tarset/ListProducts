@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <CheckBox
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_item_product"
         android:longClickable="true"
         android:id="@+id/stateItem"
         android:layout_width="wrap_content"

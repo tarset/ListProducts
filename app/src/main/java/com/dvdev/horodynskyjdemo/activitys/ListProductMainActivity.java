@@ -17,6 +17,8 @@ import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.AdapterForItemsProductInListView;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.resurses.NameAndValueForExtraIntent;
+import com.dvdev.horodynskyjdemo.resurses.TypeMethodSort;
 import com.dvdev.horodynskyjdemo.sotrs.SortListControllers;
 import com.dvdev.horodynskyjdemo.storage.ConservationAndObtainingData;
 
@@ -69,8 +71,8 @@ public class ListProductMainActivity extends AppCompatActivity {
             case R.id.edit:
                 String posForEdit = String.valueOf(info.position);
                 Intent intent = new Intent(ListProductMainActivity.this, CreatingEditingItemListViewActivity.class);
-                intent.putExtra(getString(R.string.name_action_for_intent),
-                        getString(R.string.value_action_edit_for_intent));
+                intent.putExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                        NameAndValueForExtraIntent.VALUE_ACTION_EDIT);
                 intent.putExtra(getString(R.string.name_position_for_intent), posForEdit);
                 startActivityForResult(intent, 1);
                 return true;
@@ -79,7 +81,7 @@ public class ListProductMainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 return true;
         }
-        tmp();
+        saveDataListAndUpdateAdapter();
         return false;
     }
 
@@ -93,30 +95,30 @@ public class ListProductMainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_action_add:
                 Intent intent = new Intent(ListProductMainActivity.this, CreatingEditingItemListViewActivity.class);
-                intent.putExtra(getString(R.string.name_action_for_intent),
-                        getString(R.string.value_action_add_for_intent));
+                intent.putExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                        NameAndValueForExtraIntent.VALUE_ACTION_ADD);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.menu_action_clear_list:
-                Collections.sort(Products.data, new SortListControllers(R.string.type_method_sort_remote_all_selection_item_in_listview));
+                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW));
                 break;
             case R.id.menu_action_new_list:
                 Products.data = new ArrayList<>();
                 break;
             case R.id.sort_az:
-                Collections.sort(Products.data, new SortListControllers(R.string.type_method_sort_az));
+                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.AZ));
                 break;
             case R.id.sort_za:
-                Collections.sort(Products.data, new SortListControllers(R.string.type_method_sort_za));
+                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.ZA));
                 break;
             case R.id.sort_purchased:
-                Collections.sort(Products.data, new SortListControllers(R.string.type_method_sort_purchased));
+                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.PURCHASED));
                 break;
             case R.id.sort_not_purchased:
-                Collections.sort(Products.data, new SortListControllers(R.string.type_method_sort_not_purchased));
+                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.NOT_PURCHASED));
                 break;
         }
-        tmp();
+        saveDataListAndUpdateAdapter();
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,10 +143,10 @@ public class ListProductMainActivity extends AppCompatActivity {
         Products.data.add(new Product("Салат", false));
         Products.data.add(new Product("Майонез", true));
         Products.data.add(new Product("Свинина", false));
-        tmp();
+        saveDataListAndUpdateAdapter();
     }
 
-    private void tmp() {
+    private void saveDataListAndUpdateAdapter() {
         adapter.notifyDataSetChanged();
         String s = save.saveDataList();
 

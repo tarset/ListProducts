@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.resurses.NameAndValueForExtraIntent;
 
 public class CreatingEditingItemListViewActivity extends AppCompatActivity {
     private boolean add = false;
@@ -26,13 +27,13 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
         initializationGlobalObject();
         //TODO: Потрібно ще ставити по центрі заголовок активності
 
-        String keyAction = getIntent().getStringExtra(getString(R.string.name_action_for_intent));
-        if (keyAction.equals(getString(R.string.value_action_add_for_intent))) {
+        String keyAction = getIntent().getStringExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT);
+        if (keyAction.equals(NameAndValueForExtraIntent.VALUE_ACTION_ADD)) {
             add = true;
             setTitle(R.string.label_activity_new_product);
             buttonActionAddNewOrEditedNewItem.setText(R.string.text_button_for_added_new_product);
 
-        } else if(keyAction.equals(getString(R.string.value_action_edit_for_intent))) {
+        } else if(keyAction.equals(NameAndValueForExtraIntent.VALUE_ACTION_EDIT)) {
             add = false;
             setTitle(R.string.label_activity_edit_product);
             buttonActionAddNewOrEditedNewItem.setText(R.string.text_button_for_edit_product);
@@ -59,7 +60,7 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
                 Products.data.add(new Product(editNameItem.getText().toString(), false));
             else
                 Products.data.get(Integer.parseInt(getIntent().
-                        getStringExtra(getString(R.string.name_position_for_intent)))).
+                        getStringExtra(NameAndValueForExtraIntent.KEY_POSITION_FOR_EDIT))).
                         setName(editNameItem.getText().toString());
 
             finish();
