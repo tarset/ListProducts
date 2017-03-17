@@ -30,15 +30,11 @@ public class SortListControllers implements Comparator<Product> {
     }
 
     private int sortAZ(Product o1, Product o2) {
-        String str1 = o1.getName();
-        String str2 = o2.getName();
-        return str1.compareTo(str2);
+        return o1.getName().compareTo(o2.getName());
     }
 
     private int sortZA(Product o1, Product o2) {
-        String str1 = o1.getName();
-        String str2 = o2.getName();
-        return str2.compareTo(str1);
+        return o1.getName().compareTo(o2.getName());
     }
 
     private int sortPurchased(Product o1, Product o2) {
