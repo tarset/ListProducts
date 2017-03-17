@@ -45,6 +45,7 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
         CheckBox stateItem = (CheckBox) view.findViewById(R.id.stateItem);
 
         stateItem.setText(product.getName());
+        //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
         if (product.isPruchased())
             stateItem.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         else
@@ -54,6 +55,7 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
         stateItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Перезаписує дійсний стан чекбокса при його зміні в об'єкт Product
                 if (Products.data.get(position).isPruchased())
                     Products.data.get(position).setPruchased(false);
                 else

@@ -17,6 +17,7 @@ import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.AdapterForItemsProductInListView;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.resurses.KeysForSharedPreferences;
 import com.dvdev.horodynskyjdemo.resurses.NameAndValueForExtraIntent;
 import com.dvdev.horodynskyjdemo.resurses.TypeMethodSort;
 import com.dvdev.horodynskyjdemo.sotrs.SortListControllers;
@@ -38,7 +39,7 @@ public class ListProductMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        String s = sharedPref.getString("Save", "");
+        String s = sharedPref.getString(KeysForSharedPreferences.KEY_STORAGE_DATA_LISTVIEW, "");
 
         save = new ConservationAndObtainingData();
         save.setDataList(s);
@@ -69,11 +70,13 @@ public class ListProductMainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.edit:
+                //Записує і передає позицію елемента який потрібно відредагувати в другу активність
+                //Передає в активність роботи з продуктом ключ, в залежності від якого в другій активності відбувається додавання нового або редагування
                 String posForEdit = String.valueOf(info.position);
                 Intent intent = new Intent(ListProductMainActivity.this, CreatingEditingItemListViewActivity.class);
                 intent.putExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT,
                         NameAndValueForExtraIntent.VALUE_ACTION_EDIT);
-                intent.putExtra(getString(R.string.name_position_for_intent), posForEdit);
+                intent.putExtra(NameAndValueForExtraIntent.KEY_POSITION_FOR_EDIT, posForEdit);
                 startActivityForResult(intent, 1);
                 return true;
             case R.id.delete:
@@ -94,11 +97,13 @@ public class ListProductMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_add:
+                //Передає в активність роботи з продуктом ключ, в залежності від якого в другій активності відбувається додавання нового або редагування
                 Intent intent = new Intent(ListProductMainActivity.this, CreatingEditingItemListViewActivity.class);
                 intent.putExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT,
                         NameAndValueForExtraIntent.VALUE_ACTION_ADD);
                 startActivityForResult(intent, 1);
                 break;
+            //Перевіряє всі чекбокси через сортування, не міняючи їх місцями, а просто міняючи стан активних чекбоксів на пасивний.
             case R.id.menu_action_clear_list:
                 Collections.sort(Products.data, new SortListControllers(TypeMethodSort.REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW));
                 break;
@@ -152,7 +157,7 @@ public class ListProductMainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("Save", s);
+        editor.putString(KeysForSharedPreferences.KEY_STORAGE_DATA_LISTVIEW, s);
         editor.commit();
     }
 }

@@ -15,8 +15,4 @@
     <string name="name_item_delete_context_menu">Видалити</string>
     <string name="add_test_data_in_listview">Додати тестові дані</string>
     <string name="text_error_empty_edittext">Не залишайте поле введення пустим!</string>
-    <string name="label_activity_new_product">Новий продукт</string>
-    <string name="text_button_for_added_new_product">Додати</string>
-    <string name="label_activity_edit_product">Редагування продукту</string>
-    <string name="text_button_for_edit_product">Редагувати</string>
 </resources>
