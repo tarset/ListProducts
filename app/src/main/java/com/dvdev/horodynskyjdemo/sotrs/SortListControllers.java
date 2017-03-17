@@ -41,16 +41,12 @@ public class SortListControllers implements Comparator<Product> {
         return str2.compareTo(str1);
     }
 
-    private int sortNotPurchased(Product o1, Product o2) {
-        if (o1.isPruchased() && o2.isPruchased()) return 0;
-        else if (o1.isPruchased() && !o2.isPruchased()) return 1;
-        else return -1;
+    private int sortPurchased(Product o1, Product o2) {
+        return Boolean.compare(o2.isPruchased(), o1.isPruchased());
     }
 
-    private int sortPurchased(Product o1, Product o2) {
-        if (!o1.isPruchased() && !o2.isPruchased()) return 0;
-        else if (!o1.isPruchased() && o2.isPruchased()) return 1;
-        else return -1;
+    private int sortNotPurchased(Product o1, Product o2) {
+        return Boolean.compare(o1.isPruchased(), o2.isPruchased());
     }
 
     private int RemoveActionSelectionItem(Product o1, Product o2) {
