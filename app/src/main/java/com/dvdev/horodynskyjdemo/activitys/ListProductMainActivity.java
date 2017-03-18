@@ -26,6 +26,8 @@ import com.dvdev.horodynskyjdemo.storage.ConservationAndObtainingData;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.dvdev.horodynskyjdemo.objects.Products.data;
+
 public class ListProductMainActivity extends AppCompatActivity {
     private ConservationAndObtainingData save;
 
@@ -80,7 +82,7 @@ public class ListProductMainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
                 return true;
             case R.id.delete:
-                Products.data.remove(info.position);
+                data.remove(info.position);
                 adapter.notifyDataSetChanged();
                 return true;
         }
@@ -103,24 +105,24 @@ public class ListProductMainActivity extends AppCompatActivity {
                         NameAndValueForExtraIntent.VALUE_ACTION_ADD);
                 startActivityForResult(intent, 1);
                 break;
-            //Перевіряє всі чекбокси через сортування, не міняючи їх місцями, а просто міняючи стан активних чекбоксів на пасивний.
             case R.id.menu_action_clear_list:
-                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW));
+                for (Product product: data)
+                    if (product.isPruchased()) product.setPruchased(false);
                 break;
             case R.id.menu_action_new_list:
-                Products.data = new ArrayList<>();
+                data = new ArrayList<>();
                 break;
             case R.id.sort_az:
-                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.AZ));
+                Collections.sort(data, new SortListControllers(TypeMethodSort.AZ));
                 break;
             case R.id.sort_za:
-                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.ZA));
+                Collections.sort(data, new SortListControllers(TypeMethodSort.ZA));
                 break;
             case R.id.sort_purchased:
-                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.PURCHASED));
+                Collections.sort(data, new SortListControllers(TypeMethodSort.PURCHASED));
                 break;
             case R.id.sort_not_purchased:
-                Collections.sort(Products.data, new SortListControllers(TypeMethodSort.NOT_PURCHASED));
+                Collections.sort(data, new SortListControllers(TypeMethodSort.NOT_PURCHASED));
                 break;
         }
         saveDataListAndUpdateAdapter();
@@ -128,26 +130,26 @@ public class ListProductMainActivity extends AppCompatActivity {
     }
 
     public void addTestData(View view) {
-        Products.data.add(new Product("Молоко", true));
-        Products.data.add(new Product("Печиво", false));
-        Products.data.add(new Product("Винішко", false));
-        Products.data.add(new Product("Багет", false));
-        Products.data.add(new Product("Мука", true));
-        Products.data.add(new Product("Морозиво", false));
-        Products.data.add(new Product("Мівіна", true));
-        Products.data.add(new Product("Цукор", true));
-        Products.data.add(new Product("Картопля", false));
-        Products.data.add(new Product("Батон", false));
-        Products.data.add(new Product("Хек", false));
-        Products.data.add(new Product("Гриби", true));
-        Products.data.add(new Product("Спагетті", false));
-        Products.data.add(new Product("Вода", true));
-        Products.data.add(new Product("Шоколадка", true));
-        Products.data.add(new Product("Помідори", true));
-        Products.data.add(new Product("Огірки", true));
-        Products.data.add(new Product("Салат", false));
-        Products.data.add(new Product("Майонез", true));
-        Products.data.add(new Product("Свинина", false));
+        data.add(new Product("Молоко", true));
+        data.add(new Product("Печиво", false));
+        data.add(new Product("Винішко", false));
+        data.add(new Product("Багет", false));
+        data.add(new Product("Мука", true));
+        data.add(new Product("Морозиво", false));
+        data.add(new Product("Мівіна", true));
+        data.add(new Product("Цукор", true));
+        data.add(new Product("Картопля", false));
+        data.add(new Product("Батон", false));
+        data.add(new Product("Хек", false));
+        data.add(new Product("Гриби", true));
+        data.add(new Product("Спагетті", false));
+        data.add(new Product("Вода", true));
+        data.add(new Product("Шоколадка", true));
+        data.add(new Product("Помідори", true));
+        data.add(new Product("Огірки", true));
+        data.add(new Product("Салат", false));
+        data.add(new Product("Майонез", true));
+        data.add(new Product("Свинина", false));
         saveDataListAndUpdateAdapter();
     }
 
