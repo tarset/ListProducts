@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
@@ -14,6 +15,10 @@ import com.dvdev.horodynskyjdemo.objects.Products;
 
 public class AdapterForItemsProductInListView extends BaseAdapter {
     private LayoutInflater layoutInflater;
+    private View view;
+    private Product product;
+    private CheckBox stateItem;
+    private LinearLayout linearLayout;
 
     public AdapterForItemsProductInListView(Context context) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -36,13 +41,13 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        View view = convertView;
+        view = convertView;
         if (view == null)
             view = layoutInflater.inflate(R.layout.item, parent, false);
 
-        Product product = Products.data.get(position);
+        product = Products.data.get(position);
 
-        CheckBox stateItem = (CheckBox) view.findViewById(R.id.stateItem);
+        stateItem = (CheckBox) view.findViewById(R.id.stateItem);
 
         stateItem.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
@@ -52,7 +57,9 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
             stateItem.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         stateItem.setChecked(product.isPruchased());
 
-        stateItem.setOnClickListener(new View.OnClickListener() {
+        linearLayout = (LinearLayout) view.findViewById(R.id.item);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Перезаписує дійсний стан чекбокса при його зміні в об'єкт Product
