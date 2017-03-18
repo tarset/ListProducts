@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.ProductAdapter;
 import com.dvdev.horodynskyjdemo.objects.Product;
+import com.dvdev.horodynskyjdemo.objects.Products;
 import com.dvdev.horodynskyjdemo.resurses.KeysForSharedPreferences;
 import com.dvdev.horodynskyjdemo.resurses.NameValueForExtraIntent;
 import com.dvdev.horodynskyjdemo.resurses.KeysForMethodsSort;
@@ -141,6 +142,7 @@ public class ListProductsMainActivity extends AppCompatActivity {
     }
 
     private void saveDataListAndUpdateAdapter() {
+        Products.logProducts();
         adapter.notifyDataSetChanged();
         String s = save.saveDataList();
 

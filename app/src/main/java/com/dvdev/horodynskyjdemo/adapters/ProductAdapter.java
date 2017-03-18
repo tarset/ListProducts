@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
@@ -45,13 +46,14 @@ public class ProductAdapter extends BaseAdapter {
 
         CheckBox cbProduct = (CheckBox) view.findViewById(R.id.stateItem);
         LinearLayout itemProducts = (LinearLayout) view.findViewById(R.id.item);
+        TextView tvProduct = (TextView) view.findViewById(R.id.nameProduct);
 
-        cbProduct.setText(product.getName());
+        tvProduct.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
         if (product.isPruchased())
-            cbProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            tvProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         else
-            cbProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
+            tvProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         cbProduct.setChecked(product.isPruchased());
 
         //При зміні стану чекбокса перезаписує його в об'єкт Product
@@ -68,6 +70,7 @@ public class ProductAdapter extends BaseAdapter {
 
         itemProducts.setOnClickListener(onClickListener);
         cbProduct.setOnClickListener(onClickListener);
+        tvProduct.setOnClickListener(onClickListener);
 
         return view;
     }
