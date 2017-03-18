@@ -19,6 +19,7 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
     private Product product;
     private CheckBox stateItem;
     private LinearLayout linearLayout;
+    private View.OnClickListener onClickListener;
 
     public AdapterForItemsProductInListView(Context context) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,6 +49,7 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
         product = Products.data.get(position);
 
         stateItem = (CheckBox) view.findViewById(R.id.stateItem);
+        linearLayout = (LinearLayout) view.findViewById(R.id.item);
 
         stateItem.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
@@ -57,21 +59,21 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
             stateItem.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         stateItem.setChecked(product.isPruchased());
 
-        linearLayout = (LinearLayout) view.findViewById(R.id.item);
-
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        //Перезаписує дійсний стан чекбокса при його зміні в об'єкт Product
+        onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Перезаписує дійсний стан чекбокса при його зміні в об'єкт Product
                 if (Products.data.get(position).isPruchased())
                     Products.data.get(position).setPruchased(false);
                 else
                     Products.data.get(position).setPruchased(true);
                 notifyDataSetChanged();
             }
-        });
+        };
+
+        linearLayout.setOnClickListener(onClickListener);
+        stateItem.setOnClickListener(onClickListener);
 
         return view;
     }
-
 }
