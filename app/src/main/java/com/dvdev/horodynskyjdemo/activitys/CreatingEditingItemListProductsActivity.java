@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
-import com.dvdev.horodynskyjdemo.resurses.NameAndValueForExtraIntent;
+import com.dvdev.horodynskyjdemo.resurses.NameValueForExtraIntent;
 
-public class CreatingEditingItemListViewActivity extends AppCompatActivity {
-    private boolean add = false; //індетифікатор для вибору дії кнопки підтвердження операції
+public class CreatingEditingItemListProductsActivity extends AppCompatActivity {
+    private boolean add = false; //індетифікатор для вибору дії кнопки (Додати/Редагувати)
 
-    private EditText editNameItem;
+    private EditText etNameProduct;
     private TextView messageAboutEmpty;
-    private Button buttonActionAddOrEditNewItem;
+    private Button buttonActionAddEditNewProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +33,18 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
 
 
 
-        String keyAction = getIntent().getStringExtra(NameAndValueForExtraIntent.KEY_FOR_SELECT_ACTION_ADD_OR_EDIT);
-        if (keyAction.equals(NameAndValueForExtraIntent.VALUE_ACTION_ADD)) {
+        String keyAction = getIntent().getStringExtra(NameValueForExtraIntent.NAME_FOR_SELECT_ACTION_ADD_OR_EDIT);
+        if (keyAction.equals(NameValueForExtraIntent.VALUE_ACTION_ADD)) {
             add = true;
             setTitleActivity("Новий продукт");
-            buttonActionAddOrEditNewItem.setText("Додати");
+            buttonActionAddEditNewProduct.setText("Додати");
 
-        } else if (keyAction.equals(NameAndValueForExtraIntent.VALUE_ACTION_EDIT)) {
+        } else if (keyAction.equals(NameValueForExtraIntent.VALUE_ACTION_EDIT)) {
             add = false;
             setTitleActivity("Редагування продукту");
-            buttonActionAddOrEditNewItem.setText("Редагувати");
-            editNameItem.setText(Products.data.get(Integer.parseInt(getIntent().
-                    getStringExtra(NameAndValueForExtraIntent.KEY_POSITION_FOR_EDIT))).getName());
+            buttonActionAddEditNewProduct.setText("Редагувати");
+            etNameProduct.setText(Products.data.get(Integer.parseInt(getIntent().
+                    getStringExtra(NameValueForExtraIntent.NAME_POSITION_FOR_EDIT))).getName());
         }
     }
 
@@ -65,8 +65,8 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
     private void initializationGlobalObject() {
         messageAboutEmpty = (TextView) findViewById(R.id.messageAboutEmpty);
         messageAboutEmpty.setVisibility(View.GONE);
-        editNameItem = (EditText) findViewById(R.id.editNameItem);
-        buttonActionAddOrEditNewItem = (Button) findViewById(R.id.confirm_action_new_or_edited_item);
+        etNameProduct = (EditText) findViewById(R.id.editNameItem);
+        buttonActionAddEditNewProduct = (Button) findViewById(R.id.confirm_action_new_or_edited_item);
     }
 
     public void actionCancelNewItem(View view) {
@@ -74,13 +74,13 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
     }
 
     public void actionAddNewOrEditedItem(View view) {
-        if (!editNameItem.getText().toString().equals("")) { //Перевірка на дурачка
+        if (!etNameProduct.getText().toString().equals("")) { //Перевірка на дурачка
             if (add)
-                Products.data.add(new Product(editNameItem.getText().toString(), false));
+                Products.data.add(new Product(etNameProduct.getText().toString(), false));
             else
                 Products.data.get(Integer.parseInt(getIntent().
-                        getStringExtra(NameAndValueForExtraIntent.KEY_POSITION_FOR_EDIT))).
-                        setName(editNameItem.getText().toString());
+                        getStringExtra(NameValueForExtraIntent.NAME_POSITION_FOR_EDIT))).
+                        setName(etNameProduct.getText().toString());
 
             finish();
         } else

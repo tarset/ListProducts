@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class ConservationAndObtainingData {
+public class JsonConservationObtainingData {
     private JSONObject products;
     private JSONObject dataList;
     private JSONArray dataNameItemList;

@@ -13,15 +13,10 @@ import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
 
-public class AdapterForItemsProductInListView extends BaseAdapter {
+public class ProductAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
-    private View view;
-    private Product product;
-    private CheckBox stateItem;
-    private LinearLayout linearLayout;
-    private View.OnClickListener onClickListener;
 
-    public AdapterForItemsProductInListView(Context context) {
+    public ProductAdapter(Context context) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -42,25 +37,25 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        view = convertView;
+        View view = convertView;
         if (view == null)
             view = layoutInflater.inflate(R.layout.item, parent, false);
 
-        product = Products.data.get(position);
+        Product product = Products.data.get(position);
 
-        stateItem = (CheckBox) view.findViewById(R.id.stateItem);
-        linearLayout = (LinearLayout) view.findViewById(R.id.item);
+        CheckBox cbProduct = (CheckBox) view.findViewById(R.id.stateItem);
+        LinearLayout itemProducts = (LinearLayout) view.findViewById(R.id.item);
 
-        stateItem.setText(product.getName());
+        cbProduct.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
         if (product.isPruchased())
-            stateItem.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            cbProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         else
-            stateItem.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
-        stateItem.setChecked(product.isPruchased());
+            cbProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
+        cbProduct.setChecked(product.isPruchased());
 
-        //Перезаписує дійсний стан чекбокса при його зміні в об'єкт Product
-        onClickListener = new View.OnClickListener() {
+        //При зміні стану чекбокса перезаписує його в об'єкт Product
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Products.data.get(position).isPruchased())
@@ -71,8 +66,8 @@ public class AdapterForItemsProductInListView extends BaseAdapter {
             }
         };
 
-        linearLayout.setOnClickListener(onClickListener);
-        stateItem.setOnClickListener(onClickListener);
+        itemProducts.setOnClickListener(onClickListener);
+        cbProduct.setOnClickListener(onClickListener);
 
         return view;
     }
