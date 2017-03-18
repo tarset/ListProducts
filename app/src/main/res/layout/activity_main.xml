@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
     <Button
-        android:textColor="#fff"
         android:text="@string/add_test_data_in_listview"
         android:onClick="addTestData"
         android:id="@+id/addTestData"

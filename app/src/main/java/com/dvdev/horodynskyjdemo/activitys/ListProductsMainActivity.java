@@ -142,7 +142,6 @@ public class ListProductsMainActivity extends AppCompatActivity {
     }
 
     private void saveDataListAndUpdateAdapter() {
-        Products.logProducts();
         adapter.notifyDataSetChanged();
         String s = save.saveDataList();
 
