@@ -16,9 +16,9 @@ public class SortListControllers implements Comparator<Product> {
     public int compare(Product o1, Product o2) {
         switch (typeSort) {
             case KeysForMethodsSort.AZ:
-                return o1.getName().compareTo(o2.getName());
+                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
             case KeysForMethodsSort.ZA:
-                return o2.getName().compareTo(o1.getName());
+                return o2.getName().toLowerCase().compareTo(o1.getName().toLowerCase());
             case KeysForMethodsSort.PURCHASED:
                 return Boolean.compare(o2.isPruchased(), o1.isPruchased());
             case KeysForMethodsSort.NOT_PURCHASED:
