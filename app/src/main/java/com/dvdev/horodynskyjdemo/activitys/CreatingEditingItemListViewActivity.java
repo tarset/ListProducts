@@ -3,7 +3,6 @@ package com.dvdev.horodynskyjdemo.activitys;
 import android.app.ActionBar;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -11,17 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.objects.Product;
 import com.dvdev.horodynskyjdemo.objects.Products;
 import com.dvdev.horodynskyjdemo.resurses.NameAndValueForExtraIntent;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 public class CreatingEditingItemListViewActivity extends AppCompatActivity {
     private boolean add = false; //індетифікатор для вибору дії кнопки підтвердження операції
@@ -29,11 +23,6 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
     private EditText editNameItem;
     private TextView messageAboutEmpty;
     private Button buttonActionAddOrEditNewItem;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,21 +85,5 @@ public class CreatingEditingItemListViewActivity extends AppCompatActivity {
             finish();
         } else
             messageAboutEmpty.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("CreatingEditingItemListView Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 }
