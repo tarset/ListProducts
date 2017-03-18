@@ -20,7 +20,7 @@ public class SortListControllers implements Comparator<Product> {
             case TypeMethodSort.ZA:
                 return sortZA(o1, o2);
             case TypeMethodSort.PURCHASED:
-                return sortPurchased(o1, o2);
+                return sortPurchased(o2, o1);
             case TypeMethodSort.NOT_PURCHASED:
                 return sortNotPurchased(o1, o2);
             case TypeMethodSort.REMOVE_ALL_SELECTION_ITEM_IN_LISTVIEW:
@@ -38,7 +38,7 @@ public class SortListControllers implements Comparator<Product> {
     }
 
     private int sortPurchased(Product o1, Product o2) {
-        return Boolean.compare(o2.isPruchased(), o1.isPruchased());
+        return Boolean.compare(o1.isPruchased(), o2.isPruchased());
     }
 
     private int sortNotPurchased(Product o1, Product o2) {
