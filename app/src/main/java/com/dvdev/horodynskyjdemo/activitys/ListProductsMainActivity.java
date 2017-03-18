@@ -145,7 +145,8 @@ public class ListProductsMainActivity extends AppCompatActivity {
         String s = save.saveDataList();
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        sharedPref.edit().putString(KeysForSharedPreferences.KEY_STORAGE_DATA_LISTVIEW, s);
-        sharedPref.edit().commit();
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(KeysForSharedPreferences.KEY_STORAGE_DATA_LISTVIEW, s);
+        editor.apply();
     }
 }
