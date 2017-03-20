@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
-import com.dvdev.horodynskyjdemo.objects.Product;
-import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.models.Product;
+import com.dvdev.horodynskyjdemo.models.Products;
 
 public class ProductAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
@@ -44,7 +44,7 @@ public class ProductAdapter extends BaseAdapter {
 
         Product product = Products.data.get(position);
 
-        CheckBox cbProduct = (CheckBox) view.findViewById(R.id.stateItem);
+        CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.stateItem);
         LinearLayout itemProducts = (LinearLayout) view.findViewById(R.id.item);
         TextView tvProduct = (TextView) view.findViewById(R.id.nameProduct);
 
@@ -54,7 +54,7 @@ public class ProductAdapter extends BaseAdapter {
             tvProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         else
             tvProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
-        cbProduct.setChecked(product.isPruchased());
+        chBoxProduct.setChecked(product.isPruchased());
 
         //При зміні стану чекбокса перезаписує його в об'єкт Product
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class ProductAdapter extends BaseAdapter {
         };
 
         itemProducts.setOnClickListener(onClickListener);
-        cbProduct.setOnClickListener(onClickListener);
+        chBoxProduct.setOnClickListener(onClickListener);
         tvProduct.setOnClickListener(onClickListener);
 
         return view;

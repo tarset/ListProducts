@@ -1,4 +1,4 @@
-package com.dvdev.horodynskyjdemo.activitys;
+package com.dvdev.horodynskyjdemo.activities;
 
 import android.app.ActionBar;
 import android.graphics.Color;
@@ -13,16 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
-import com.dvdev.horodynskyjdemo.objects.Product;
-import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.models.Product;
+import com.dvdev.horodynskyjdemo.models.Products;
 import com.dvdev.horodynskyjdemo.resurses.NameValueForExtraIntent;
 
 public class CreatingEditingItemListProductsActivity extends AppCompatActivity {
     private boolean add = false; //індетифікатор для вибору дії кнопки (Додати/Редагувати)
 
     private EditText etNameProduct;
-    private TextView messageAboutEmpty;
-    private Button buttonActionAddEditNewProduct;
+    private TextView tvMessageAboutEmpty;
+    private Button btnActionAddEditNewProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,12 @@ public class CreatingEditingItemListProductsActivity extends AppCompatActivity {
         if (keyAction.equals(NameValueForExtraIntent.VALUE_ACTION_ADD)) {
             add = true;
             setTitleActivity("Новий продукт");
-            buttonActionAddEditNewProduct.setText("Додати");
+            btnActionAddEditNewProduct.setText("Додати");
 
         } else if (keyAction.equals(NameValueForExtraIntent.VALUE_ACTION_EDIT)) {
             add = false;
             setTitleActivity("Редагування продукту");
-            buttonActionAddEditNewProduct.setText("Редагувати");
+            btnActionAddEditNewProduct.setText("Редагувати");
             etNameProduct.setText(Products.data.get(Integer.parseInt(getIntent().
                     getStringExtra(NameValueForExtraIntent.NAME_POSITION_FOR_EDIT))).getName());
         }
@@ -63,10 +63,10 @@ public class CreatingEditingItemListProductsActivity extends AppCompatActivity {
     }
 
     private void initializationGlobalObject() {
-        messageAboutEmpty = (TextView) findViewById(R.id.messageAboutEmpty);
-        messageAboutEmpty.setVisibility(View.GONE);
+        tvMessageAboutEmpty = (TextView) findViewById(R.id.messageAboutEmpty);
+        tvMessageAboutEmpty.setVisibility(View.GONE);
         etNameProduct = (EditText) findViewById(R.id.editNameItem);
-        buttonActionAddEditNewProduct = (Button) findViewById(R.id.confirm_action_new_or_edited_item);
+        btnActionAddEditNewProduct = (Button) findViewById(R.id.confirm_action_new_or_edited_item);
     }
 
     public void actionCancelNewItem(View view) {
@@ -84,6 +84,6 @@ public class CreatingEditingItemListProductsActivity extends AppCompatActivity {
 
             finish();
         } else
-            messageAboutEmpty.setVisibility(View.VISIBLE);
+            tvMessageAboutEmpty.setVisibility(View.VISIBLE);
     }
 }

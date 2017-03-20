@@ -1,7 +1,7 @@
 package com.dvdev.horodynskyjdemo.storage;
 
-import com.dvdev.horodynskyjdemo.objects.Product;
-import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.models.Product;
+import com.dvdev.horodynskyjdemo.models.Products;
 import com.dvdev.horodynskyjdemo.resurses.KeysForGenerationJson;
 
 import org.json.simple.JSONArray;

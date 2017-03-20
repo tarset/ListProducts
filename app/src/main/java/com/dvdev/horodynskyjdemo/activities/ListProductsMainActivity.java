@@ -1,4 +1,4 @@
-package com.dvdev.horodynskyjdemo.activitys;
+package com.dvdev.horodynskyjdemo.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,10 @@ import android.widget.ListView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.ProductAdapter;
-import com.dvdev.horodynskyjdemo.objects.Product;
-import com.dvdev.horodynskyjdemo.objects.Products;
+import com.dvdev.horodynskyjdemo.models.Product;
+import com.dvdev.horodynskyjdemo.models.Products;
 import com.dvdev.horodynskyjdemo.resurses.KeysForSharedPreferences;
 import com.dvdev.horodynskyjdemo.resurses.NameValueForExtraIntent;
-import com.dvdev.horodynskyjdemo.resurses.KeysForMethodsSort;
 import com.dvdev.horodynskyjdemo.sotrs.SortListControllers;
 import com.dvdev.horodynskyjdemo.storage.JsonConservationObtainingData;
 
@@ -27,13 +26,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static com.dvdev.horodynskyjdemo.objects.Products.data;
+import static com.dvdev.horodynskyjdemo.models.Products.data;
 
 public class ListProductsMainActivity extends AppCompatActivity {
     private JsonConservationObtainingData save;
     private ProductAdapter adapter;
 
-    private ListView listProducts;
+    private ListView lvProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +52,13 @@ public class ListProductsMainActivity extends AppCompatActivity {
     }
 
     private void settingListProducts() {
-        listProducts.setAdapter(adapter);
-        registerForContextMenu(listProducts);
+        lvProducts.setAdapter(adapter);
+        registerForContextMenu(lvProducts);
     }
 
     private void initializationGlobalObject() {
         adapter = new ProductAdapter(ListProductsMainActivity.this);
-        listProducts = (ListView) findViewById(R.id.list_item);
+        lvProducts = (ListView) findViewById(R.id.list_item);
     }
 
     @Override
@@ -115,16 +114,16 @@ public class ListProductsMainActivity extends AppCompatActivity {
                 data = new ArrayList<>();
                 break;
             case R.id.sort_az:
-                Collections.sort(data, new SortListControllers(KeysForMethodsSort.AZ));
+                Collections.sort(data, Products.sortAZ());
                 break;
             case R.id.sort_za:
-                Collections.sort(data, new SortListControllers(KeysForMethodsSort.ZA));
+                Collections.sort(data, Collections.reverseOrder(Products.sortAZ()));
                 break;
             case R.id.sort_purchased:
-                Collections.sort(data, new SortListControllers(KeysForMethodsSort.PURCHASED));
+                Collections.sort(data, Products.sortPurchased());
                 break;
             case R.id.sort_not_purchased:
-                Collections.sort(data, new SortListControllers(KeysForMethodsSort.NOT_PURCHASED));
+                Collections.sort(data, Collections.reverseOrder(Products.sortPurchased()));
                 break;
         }
         saveDataListAndUpdateAdapter();

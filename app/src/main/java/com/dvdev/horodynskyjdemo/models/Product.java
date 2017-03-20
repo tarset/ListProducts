@@ -1,4 +1,4 @@
-package com.dvdev.horodynskyjdemo.objects;
+package com.dvdev.horodynskyjdemo.models;
 
 /**
  * Об'єкт даних для пункта у ListView
@@ -20,7 +20,7 @@ public class Product {
         this.name = name;
     }
 
-    public boolean isPruchased() {
+    public Boolean isPruchased() {
         return pruchased;
     }
 

@@ -7,15 +7,15 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activitys.ListProductsMainActivity">
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+        <activity android:name=".activities.ListProductsMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.CreatingEditingItemListProductsActivity"
+        <activity android:name=".activities.CreatingEditingItemListProductsActivity"
             android:label="@string/label_item_activity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
