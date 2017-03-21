@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name">Список покупок</string>
-    <string name="name_item_menu_add">Додати</string>
-    <string name="name_item_menu_sort">Сортувати</string>
-    <string name="name_item_menu_clear_list">Очистити список</string>
-    <string name="name_item_menu_new_list">Новий список</string>
+    <string name="menu_add">Додати</string>
+    <string name="menu_sort">Сортувати</string>
+    <string name="menu_clear_list">Очистити список</string>
+    <string name="menu_new_list">Новий список</string>
     <string name="label_item_activity">Новий продукт</string>
-    <string name="name_item_sortmenu_az">А-Я</string>
-    <string name="name_item_sortmenu_za">Я-А</string>
-    <string name="name_item_sortmenu_bought">Куплені</string>
-    <string name="name_item_sortmenu_not_bought">Не куплені</string>
-    <string name="hint_edittext_in_activity_item">Назва продукту</string>
-    <string name="name_button_acncel_action_new_item">Відмінити</string>
-    <string name="name_item_edit_context_menu">Редагувати</string>
-    <string name="name_item_delete_context_menu">Видалити</string>
-    <string name="add_test_data_in_listview">Додати тестові дані</string>
-    <string name="text_error_empty_edittext">Не залишайте поле введення пустим!</string>
+    <string name="menu_menusort_az">А-Я</string>
+    <string name="menu_menusort_za">Я-А</string>
+    <string name="menu_menusort_bought">Куплені</string>
+    <string name="menu_menusort_not_bought">Не куплені</string>
+    <string name="hint_edt_name_product">Назва продукту</string>
+    <string name="btn_cancel_action_new_product">Відмінити</string>
+    <string name="context_menu_edit_product">Редагувати</string>
+    <string name="context_menu_remove_product">Видалити</string>
+    <string name="btn_add_list_product">Додати тестові дані</string>
+    <string name="btn_confirm_action_new_or_edited_product_add">Додати</string>
+    <string name="btn_confirm_action_new_or_edited_product_edit">Редагувати</string>
+    <string name="label_activity_product_add">Новий продукт</string>
+    <string name="label_activity_product_edit">Редагування продукту</string>
+    <string name="tv_message_about_empty">Не залишайте поле введення пустим!</string>
 </resources>

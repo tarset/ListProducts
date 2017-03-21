@@ -2,26 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.dvdev.horodynskyjdemo.activities.CreatingEditingItemListProductsActivity">
+    tools:context="com.dvdev.horodynskyjdemo.activities.ProductActivity">
 
     <EditText
-        android:id="@+id/editNameItem"
+        android:id="@+id/edtNameProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_edittext_in_activity_item"
+        android:hint="@string/hint_edt_name_product"
         android:inputType="text" />
     <TextView
-        android:id="@+id/messageAboutEmpty"
+        android:id="@+id/tvMessageAboutEmpty"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
-        android:text="@string/text_error_empty_edittext"
+        android:text="@string/tv_message_about_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -30,14 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/cancel_action_new_item"
+            android:id="@+id/btnCancelActionNewProduct"
             android:onClick="actionCancelNewItem"
-            android:text="@string/name_button_acncel_action_new_item"
+            android:text="@string/btn_cancel_action_new_product"
             android:layout_weight="0.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/confirm_action_new_or_edited_item"
+            android:id="@+id/btnConfirmActionNewOrEditedProduct"
             android:onClick="actionAddNewOrEditedItem"
             android:layout_weight="0.5"
             android:layout_width="0dp"

@@ -12,23 +12,26 @@ import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.models.Product;
-import com.dvdev.horodynskyjdemo.models.Products;
+
+import java.util.ArrayList;
 
 public class ProductAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
+    private ArrayList<Product> arrListProducts;
 
-    public ProductAdapter(Context context) {
+    public ProductAdapter(Context context, ArrayList<Product> productsArrayList) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.arrListProducts = productsArrayList;
     }
 
     @Override
     public int getCount() {
-        return Products.data.size();
+        return arrListProducts.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return Products.data.get(position);
+        return arrListProducts.get(position);
     }
 
     @Override
@@ -40,13 +43,13 @@ public class ProductAdapter extends BaseAdapter {
     public View getView(final int position, final View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null)
-            view = layoutInflater.inflate(R.layout.item, parent, false);
+            view = layoutInflater.inflate(R.layout.custom_item_product, parent, false);
 
-        Product product = Products.data.get(position);
+        Product product = arrListProducts.get(position);
 
-        CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.stateItem);
-        LinearLayout itemProducts = (LinearLayout) view.findViewById(R.id.item);
-        TextView tvProduct = (TextView) view.findViewById(R.id.nameProduct);
+        CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.chBoxStateProduct);
+        LinearLayout linLayProduct = (LinearLayout) view.findViewById(R.id.linLayProduct);
+        TextView tvProduct = (TextView) view.findViewById(R.id.tvNameProduct);
 
         tvProduct.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
@@ -60,18 +63,23 @@ public class ProductAdapter extends BaseAdapter {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Products.data.get(position).isPruchased())
-                    Products.data.get(position).setPruchased(false);
+                if (arrListProducts.get(position).isPruchased())
+                    arrListProducts.get(position).setPruchased(false);
                 else
-                    Products.data.get(position).setPruchased(true);
+                    arrListProducts.get(position).setPruchased(true);
                 notifyDataSetChanged();
             }
         };
 
-        itemProducts.setOnClickListener(onClickListener);
+        linLayProduct.setOnClickListener(onClickListener);
         chBoxProduct.setOnClickListener(onClickListener);
         tvProduct.setOnClickListener(onClickListener);
 
         return view;
+    }
+
+    public void update(ArrayList<Product> productsArrayList) {
+        this.arrListProducts = productsArrayList;
+        notifyDataSetChanged();
     }
 }

@@ -2,50 +2,50 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_action_add"
+        android:id="@+id/menuAdd"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="1"
         app:showAsAction="always"
-        android:title="@string/name_item_menu_add" />
+        android:title="@string/menu_add" />
     <item
-        android:id="@+id/menu_action_sort"
+        android:id="@+id/menuSort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:orderInCategory="2"
         app:showAsAction="always"
-        android:title="@string/name_item_menu_sort">
+        android:title="@string/menu_sort">
         <menu>
             <group>
                 <item
-                    android:id="@+id/sort_az"
+                    android:id="@+id/sortAz"
                     android:orderInCategory="1"
                     android:showAsAction="never"
-                    android:title="@string/name_item_sortmenu_az" />
+                    android:title="@string/menu_menusort_az" />
                 <item
-                    android:id="@+id/sort_za"
+                    android:id="@+id/sortZa"
                     android:orderInCategory="2"
                     android:showAsAction="never"
-                    android:title="@string/name_item_sortmenu_za" />
+                    android:title="@string/menu_menusort_za" />
                 <item
-                    android:id="@+id/sort_purchased"
+                    android:id="@+id/sortPurchased"
                     android:orderInCategory="3"
                     android:showAsAction="never"
-                    android:title="@string/name_item_sortmenu_bought" />
+                    android:title="@string/menu_menusort_bought" />
                 <item
-                    android:id="@+id/sort_not_purchased"
+                    android:id="@+id/sortNotPurchased"
                     android:orderInCategory="4"
                     android:showAsAction="never"
-                    android:title="@string/name_item_sortmenu_not_bought" />
+                    android:title="@string/menu_menusort_not_bought" />
             </group>
         </menu>
     </item>
     <item
-        android:id="@+id/menu_action_clear_list"
+        android:id="@+id/menuClearList"
         android:orderInCategory="3"
         android:showAsAction="never"
-        android:title="@string/name_item_menu_clear_list" />
+        android:title="@string/menu_clear_list" />
     <item
-        android:id="@+id/menu_action_new_list"
+        android:id="@+id/menuNewList"
         android:orderInCategory="4"
         android:showAsAction="never"
-        android:title="@string/name_item_menu_new_list" />
+        android:title="@string/menu_new_list" />
 </menu>

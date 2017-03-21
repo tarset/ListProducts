@@ -1,15 +1,11 @@
-package com.dvdev.horodynskyjdemo.models;
+package com.dvdev.horodynskyjdemo.sorts;
 
-import java.util.ArrayList;
+import com.dvdev.horodynskyjdemo.models.Product;
+
 import java.util.Comparator;
 
-/**
- * Колекція обєктів даних пунктів ListView
- */
-public class Products {
-    public static ArrayList<Product> data = new ArrayList<>();
-
-    public static Comparator<Product> sortAZ() {
+public class SortProducts {
+    public Comparator<Product> sortAZ() {
         return new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
@@ -18,7 +14,7 @@ public class Products {
         };
     }
 
-    public static Comparator<Product> sortPurchased() {
+    public Comparator<Product> sortPurchased() {
         return new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
