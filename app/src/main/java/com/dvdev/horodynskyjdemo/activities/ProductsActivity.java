@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.ProductAdapter;
@@ -28,7 +29,7 @@ public class ProductsActivity extends AppCompatActivity {
     private ArrayList<Product> arrListProducts = new ArrayList<>();
 
     private Constants constants;
-    private JsonConservationObtainingProducts save;
+    private JsonConservationObtainingProducts jsonManager;
     private ProductAdapter adapter;
     private SortProducts sortProducts;
 
@@ -46,37 +47,14 @@ public class ProductsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        obtainingProducts();
+        arrListProducts = productsObtainingWithJson();
+        arrListProducts = adapter.update(arrListProducts);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        saveDataListAndUpdateAdapter();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {return;}
-        String name;
-        switch (requestCode) {
-            //TODO: Розібрати, чому case не приймає значення змінних
-            case 1:
-                name = data.getStringExtra(constants.EXTRA_INTENT_NAME_PRODUCT_FOR_EDIT);
-                arrListProducts.add(new Product(name, false));
-                break;
-            case 2:
-                name = data.getStringExtra(constants.EXTRA_INTENT_NAME_PRODUCT_FOR_EDIT);
-                int position = Integer.parseInt(data.getStringExtra(constants.EXTRA_INTENT_NAME_POSITION_FOR_EDIT));
-                arrListProducts.get(position).setName(name);
-                break;
-        }
-    }
-
-    private void obtainingProducts() {
-        save = new JsonConservationObtainingProducts(arrListProducts);
-        arrListProducts = save.setJsonObjProduct(this.getPreferences(Context.MODE_PRIVATE).
-                getString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, ""));
+        saveProducts();
     }
 
     private void settingListProducts() {
@@ -103,24 +81,14 @@ public class ProductsActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.contextMenuEditProduct:
-                //TODO: Придумати як порівнювати введений елемент до всіх що вже є
-                //Записує і передає позицію елемента який потрібно відредагувати
-                //Передає ключове значення, в залежності від якого відбувається редагування продукту
-                Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
-                intent.putExtra(constants.EXTRA_INTENT_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                        constants.EXTRA_INTENT_VALUE_ACTION_EDIT);
-                intent.putExtra(constants.EXTRA_INTENT_NAME_PRODUCT_FOR_EDIT,
-                        arrListProducts.get(info.position).getName());
-                intent.putExtra(constants.EXTRA_INTENT_NAME_POSITION_FOR_EDIT,
-                        info.position);
-                startActivityForResult(intent, constants.ON_ACTIVITY_RESULT_EDIT);
+                intentProductActivityEdit(info.position);
                 return true;
             case R.id.contextMenuRemoveProduct:
                 arrListProducts.remove(info.position);
                 adapter.notifyDataSetChanged();
                 return true;
         }
-        saveDataListAndUpdateAdapter();
+        saveProducts();
         return false;
     }
 
@@ -130,36 +98,74 @@ public class ProductsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null)
+            return;
+        arrListProducts = productsObtainingWithJson(data.getStringExtra(constants.
+                INTENT_EXTRA_NAME_PRODUCT_FOR_EDIT));
+        saveProducts();
+    }
+
+    private void intentProductActivityAdd() {
+        //Передає список продуктів у json
+        Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                constants.INTENT_EXTRA_VALUE_ACTION_ADD);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCTS,
+                jsonManager.setProducts(arrListProducts));
+        startActivityForResult(intent, constants.ON_ACTIVITY_RESULT_ADD);
+    }
+
+    private void intentProductActivityEdit(int position) {
+        //Передає список продуктів у json та вибрану позицію
+        Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCTS,
+                jsonManager.setProducts(arrListProducts));
+        intent.putExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT,
+                String.valueOf(position));
+        startActivityForResult(intent, constants.ON_ACTIVITY_RESULT_EDIT);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuAdd:
-                //Передає ключове значення, від якого відбувається додавання нового продукту
-                Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
-                intent.putExtra(constants.EXTRA_INTENT_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                        constants.EXTRA_INTENT_VALUE_ACTION_ADD);
-                startActivityForResult(intent, constants.ON_ACTIVITY_RESULT_ADD);
+                intentProductActivityAdd();
                 break;
             case R.id.menuClearList:
-                for (Product product: arrListProducts)
+                for (Product product : arrListProducts)
                     if (product.isPruchased()) product.setPruchased(false);
                 break;
             case R.id.menuNewList:
                 arrListProducts = new ArrayList<>();
                 break;
+            case R.id.menuSort:
+                if (arrListProducts.isEmpty())
+                    Toast.makeText(ProductsActivity.this,
+                            "І що Ви надумали сортувати? О.о " +
+                                    "\nВаш список продуктів пустий ¯\\_(ツ)_/¯",
+                            Toast.LENGTH_LONG).show();
+                break;
             case R.id.sortAz:
-                Collections.sort(arrListProducts, sortProducts.sortAZ());
+                if (!arrListProducts.isEmpty())
+                    Collections.sort(arrListProducts, sortProducts.sortAZ());
                 break;
             case R.id.sortZa:
-                Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortAZ()));
+                if (!arrListProducts.isEmpty())
+                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortAZ()));
                 break;
             case R.id.sortPurchased:
-                Collections.sort(arrListProducts, sortProducts.sortPurchased());
+                if (!arrListProducts.isEmpty())
+                    Collections.sort(arrListProducts, sortProducts.sortPurchased());
                 break;
             case R.id.sortNotPurchased:
-                Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortPurchased()));
+                if (!arrListProducts.isEmpty())
+                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortPurchased()));
                 break;
         }
-        saveDataListAndUpdateAdapter();
+        saveProducts();
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,16 +173,31 @@ public class ProductsActivity extends AppCompatActivity {
         String[] tmp = {"Молоко", "Печиво", "Багет", "Мука", "Морозиво", "Цукор", "Картопля",
                 "Батон", "Риба", "Гриби", "Огірки", "Спагетті", "Вода", "Свинина",
                 "Курячі стегна", "Майонез", "Помідори", "Сіль"};
-        for (String s: tmp)
+        for (String s : tmp)
             arrListProducts.add(new Product(s, new Random().nextBoolean()));
 
-        saveDataListAndUpdateAdapter();
+        saveProducts();
     }
 
-    private void saveDataListAndUpdateAdapter() {
-        adapter.update(arrListProducts);
-        String s = save.saveDataList();
+    private void saveProducts() {
+        arrListProducts = adapter.update(arrListProducts);
 
+        productsConservationInJson();
+    }
+
+    public ArrayList<Product> productsObtainingWithJson() {
+        jsonManager = new JsonConservationObtainingProducts();
+        return jsonManager.getProducts(this.getPreferences(Context.MODE_PRIVATE).
+                getString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, ""));
+    }
+
+    public ArrayList<Product> productsObtainingWithJson(String s) {
+        jsonManager = new JsonConservationObtainingProducts();
+        return jsonManager.getProducts(s);
+    }
+
+    public void productsConservationInJson() {
+        String s = jsonManager.setProducts(arrListProducts);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, s);

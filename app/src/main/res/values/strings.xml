@@ -19,4 +19,5 @@
     <string name="label_activity_product_add">Новий продукт</string>
     <string name="label_activity_product_edit">Редагування продукту</string>
     <string name="tv_message_about_empty">Не залишайте поле введення пустим!</string>
+    <string name="tv_message_about_double_product">Таке вже є :)</string>
 </resources>

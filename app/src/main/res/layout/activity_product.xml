@@ -17,7 +17,7 @@
         android:hint="@string/hint_edt_name_product"
         android:inputType="text" />
     <TextView
-        android:id="@+id/tvMessageAboutEmpty"
+        android:id="@+id/tvMessageErrors"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
         android:text="@string/tv_message_about_empty"

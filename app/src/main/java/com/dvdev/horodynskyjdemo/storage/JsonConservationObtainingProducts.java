@@ -20,12 +20,12 @@ public class JsonConservationObtainingProducts {
 
     private ArrayList<Product> arrListProducts;
 
-        public JsonConservationObtainingProducts(ArrayList<Product> arrListProducts) {
-            this.arrListProducts = arrListProducts;
-            constants = new Constants();
+    public JsonConservationObtainingProducts() {
+        arrListProducts = new ArrayList<>();
+        constants = new Constants();
     }
 
-    public ArrayList<Product> setJsonObjProduct(String s) {
+    public ArrayList<Product> getProducts(String s) {
         if (!s.isEmpty()) {
             jsonDeserializer(s);
             return arrListProducts;
@@ -36,7 +36,8 @@ public class JsonConservationObtainingProducts {
         }
     }
 
-    public String saveDataList() {
+    public String setProducts(ArrayList<Product> arrListProducts) {
+        this.arrListProducts = arrListProducts;
         jsonSerializer();
         return jsonObjProduct.toString();
     }
