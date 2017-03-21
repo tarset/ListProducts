@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_size_item_product">20sp</dimen>
+    <dimen name="chbox_size">24dp</dimen>
 </resources>
