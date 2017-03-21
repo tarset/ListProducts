@@ -57,16 +57,16 @@ public class ProductsActivity extends AppCompatActivity {
         saveProducts();
     }
 
-    private void settingListProducts() {
-        lvProducts.setAdapter(adapter);
-        registerForContextMenu(lvProducts);
-    }
-
     private void initializationGlobalObject() {
         constants = new Constants();
         adapter = new ProductAdapter(ProductsActivity.this, arrListProducts);
         sortProducts = new SortProducts();
         lvProducts = (ListView) findViewById(R.id.lvProducts);
+    }
+
+    private void settingListProducts() {
+        lvProducts.setAdapter(adapter);
+        registerForContextMenu(lvProducts);
     }
 
     @Override

@@ -30,8 +30,6 @@ public class JsonConservationObtainingProducts {
             jsonDeserializer(s);
             return arrListProducts;
         } else {
-            //TODO: Змінити на нормальне
-            arrListProducts.add(new Product("Пусто", false));
             return arrListProducts;
         }
     }
