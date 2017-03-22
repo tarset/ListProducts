@@ -131,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
             Toast toastListClear = Toast.makeText(MainActivity.this,
-                    "І що Ви надумали сортувати? О.о " +
-                            "\nВаш список продуктів пустий ¯\\_(ツ)_/¯",
+                    "Ваш список продуктів пустий ¯\\_(ツ)_/¯",
                     Toast.LENGTH_LONG);
         switch (item.getItemId()) {
             case R.id.menuAdd:
