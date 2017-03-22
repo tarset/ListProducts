@@ -3,6 +3,7 @@
     android:longClickable="true"
     android:id="@+id/linLayProduct"
     android:orientation="horizontal"
+    android:padding="@dimen/padding_custom_item__list_products"
     android:layout_width="match_parent"
     android:layout_margin="@dimen/activity_vertical_margin"
     android:layout_height="match_parent">
@@ -17,6 +18,7 @@
         android:background="?android:attr/listChoiceIndicatorMultiple" />
 
     <TextView
+        android:text="lkjgdfgkj"
         android:layout_gravity="center_vertical"
         android:textSize="@dimen/text_size_item_product"
         android:longClickable="true"

@@ -6,4 +6,5 @@
     <dimen name="activity_vertical_margin">64dp</dimen>
     <dimen name="text_size_item_product">64sp</dimen>
     <dimen name="chbox_size">74dp</dimen>
+    <dimen name="padding_custom_item__list_products">16dp</dimen>
 </resources>
