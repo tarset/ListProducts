@@ -130,39 +130,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+            Toast toastListClear = Toast.makeText(MainActivity.this,
+                    "І що Ви надумали сортувати? О.о " +
+                            "\nВаш список продуктів пустий ¯\\_(ツ)_/¯",
+                    Toast.LENGTH_LONG);
         switch (item.getItemId()) {
             case R.id.menuAdd:
                 intentProductActivityAdd();
                 break;
             case R.id.menuClearList:
-                for (Product product : arrListProducts)
-                    if (product.isPruchased()) product.setPruchased(false);
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else for (Product product : arrListProducts) if (product.isPruchased())
+                    product.setPruchased(false);
                 break;
             case R.id.menuNewList:
-                arrListProducts = new ArrayList<>();
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else arrListProducts = new ArrayList<>();
                 break;
             case R.id.menuSort:
-                if (arrListProducts.isEmpty())
-                    Toast.makeText(MainActivity.this,
-                            "І що Ви надумали сортувати? О.о " +
-                                    "\nВаш список продуктів пустий ¯\\_(ツ)_/¯",
-                            Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.sortAz:
-                if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, sortProductsController.sortAZ());
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else Collections.sort(arrListProducts, sortProductsController.sortAZ());
                 break;
             case R.id.sortZa:
-                if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortAZ()));
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortAZ()));
                 break;
             case R.id.sortPurchased:
-                if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, sortProductsController.sortPurchased());
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else Collections.sort(arrListProducts, sortProductsController.sortPurchased());
                 break;
             case R.id.sortNotPurchased:
-                if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortPurchased()));
+                if (arrListProducts.isEmpty()) toastListClear.show();
+                else Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortPurchased()));
                 break;
         }
         saveProducts();
