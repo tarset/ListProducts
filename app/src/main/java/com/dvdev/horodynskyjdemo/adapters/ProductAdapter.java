@@ -52,10 +52,8 @@ public class ProductAdapter extends BaseAdapter {
 
         tvProduct.setText(product.getName());
         //При активному чекбоксі закреслює його текст, в протилежному випадку робить звичайним
-        if (product.isPruchased())
-            tvProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        else
-            tvProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
+        if (product.isPruchased()) tvProduct.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        else tvProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         chBoxProduct.setChecked(product.isPruchased());
 
         return view;

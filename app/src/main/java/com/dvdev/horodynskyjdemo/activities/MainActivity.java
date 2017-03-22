@@ -11,7 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dvdev.horodynskyjdemo.R;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ArrayList<Product> arrListProducts = new ArrayList<>();
 
     private Constants constants;
@@ -54,12 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private void settingListProducts() {
         lvProducts.setAdapter(adapter);
         registerForContextMenu(lvProducts);
-        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(MainActivity.this,"position: " + position,Toast.LENGTH_SHORT).show();
-            }
-        });
+        lvProducts.setOnItemClickListener(this);
     }
 
     @Override
@@ -210,5 +208,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, s);
         editor.apply();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.chBoxStateProduct);
+        TextView tvNameProduct = (TextView) view.findViewById(R.id.tvNameProduct);
+        Toast.makeText(MainActivity.this,"state: " + chBoxProduct.isChecked() + "\ntext: " + tvNameProduct.getText(),Toast.LENGTH_SHORT).show();
+        if (arrListProducts.get(position).isPruchased()) arrListProducts.get(position).setPruchased(false);
+        else arrListProducts.get(position).setPruchased(true);
+        adapter.notifyDataSetChanged();
     }
 }
