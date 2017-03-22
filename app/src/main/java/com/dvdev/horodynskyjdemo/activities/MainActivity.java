@@ -18,20 +18,20 @@ import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.adapters.ProductAdapter;
 import com.dvdev.horodynskyjdemo.models.Product;
 import com.dvdev.horodynskyjdemo.resources.Constants;
-import com.dvdev.horodynskyjdemo.sorts.SortProducts;
+import com.dvdev.horodynskyjdemo.controllers.SortProductsController;
 import com.dvdev.horodynskyjdemo.storage.JsonConservationObtainingProducts;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class ProductsActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private ArrayList<Product> arrListProducts = new ArrayList<>();
 
     private Constants constants;
     private JsonConservationObtainingProducts jsonManager;
     private ProductAdapter adapter;
-    private SortProducts sortProducts;
+    private SortProductsController sortProductsController;
 
     private ListView lvProducts;
 
@@ -59,8 +59,8 @@ public class ProductsActivity extends AppCompatActivity {
 
     private void initializationGlobalObject() {
         constants = new Constants();
-        adapter = new ProductAdapter(ProductsActivity.this, arrListProducts);
-        sortProducts = new SortProducts();
+        adapter = new ProductAdapter(MainActivity.this, arrListProducts);
+        sortProductsController = new SortProductsController();
         lvProducts = (ListView) findViewById(R.id.lvProducts);
     }
 
@@ -109,7 +109,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     private void intentProductActivityAdd() {
         //Передає список продуктів у json
-        Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
         intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
                 constants.INTENT_EXTRA_VALUE_ACTION_ADD);
         intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCTS,
@@ -119,7 +119,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     private void intentProductActivityEdit(int position) {
         //Передає список продуктів у json та вибрану позицію
-        Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
         intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
                 constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
         intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCTS,
@@ -143,26 +143,26 @@ public class ProductsActivity extends AppCompatActivity {
                 break;
             case R.id.menuSort:
                 if (arrListProducts.isEmpty())
-                    Toast.makeText(ProductsActivity.this,
+                    Toast.makeText(MainActivity.this,
                             "І що Ви надумали сортувати? О.о " +
                                     "\nВаш список продуктів пустий ¯\\_(ツ)_/¯",
                             Toast.LENGTH_LONG).show();
                 break;
             case R.id.sortAz:
                 if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, sortProducts.sortAZ());
+                    Collections.sort(arrListProducts, sortProductsController.sortAZ());
                 break;
             case R.id.sortZa:
                 if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortAZ()));
+                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortAZ()));
                 break;
             case R.id.sortPurchased:
                 if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, sortProducts.sortPurchased());
+                    Collections.sort(arrListProducts, sortProductsController.sortPurchased());
                 break;
             case R.id.sortNotPurchased:
                 if (!arrListProducts.isEmpty())
-                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProducts.sortPurchased()));
+                    Collections.sort(arrListProducts, Collections.reverseOrder(sortProductsController.sortPurchased()));
                 break;
         }
         saveProducts();

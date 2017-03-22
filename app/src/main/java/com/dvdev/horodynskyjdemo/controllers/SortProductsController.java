@@ -1,10 +1,10 @@
-package com.dvdev.horodynskyjdemo.sorts;
+package com.dvdev.horodynskyjdemo.controllers;
 
 import com.dvdev.horodynskyjdemo.models.Product;
 
 import java.util.Comparator;
 
-public class SortProducts {
+public class SortProductsController {
     public Comparator<Product> sortAZ() {
         return new Comparator<Product>() {
             @Override
