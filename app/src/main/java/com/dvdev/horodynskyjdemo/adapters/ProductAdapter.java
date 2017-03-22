@@ -48,7 +48,6 @@ public class ProductAdapter extends BaseAdapter {
         Product product = arrListProducts.get(position);
 
         CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.chBoxStateProduct);
-        LinearLayout linLayProduct = (LinearLayout) view.findViewById(R.id.linLayProduct);
         TextView tvProduct = (TextView) view.findViewById(R.id.tvNameProduct);
 
         tvProduct.setText(product.getName());
@@ -58,22 +57,6 @@ public class ProductAdapter extends BaseAdapter {
         else
             tvProduct.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
         chBoxProduct.setChecked(product.isPruchased());
-
-        //При зміні стану чекбокса перезаписує його в об'єкт Product
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (arrListProducts.get(position).isPruchased())
-                    arrListProducts.get(position).setPruchased(false);
-                else
-                    arrListProducts.get(position).setPruchased(true);
-                notifyDataSetChanged();
-            }
-        };
-
-        linLayProduct.setOnClickListener(onClickListener);
-        chBoxProduct.setOnClickListener(onClickListener);
-        tvProduct.setOnClickListener(onClickListener);
 
         return view;
     }

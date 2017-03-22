@@ -38,23 +38,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products);
+        setContentView(R.layout.activity_main);
 
         initializationGlobalObject();
         settingListProducts();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        arrListProducts = productsObtainingWithJson();
-        arrListProducts = adapter.update(arrListProducts);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveProducts();
     }
 
     private void initializationGlobalObject() {
@@ -67,6 +54,26 @@ public class MainActivity extends AppCompatActivity {
     private void settingListProducts() {
         lvProducts.setAdapter(adapter);
         registerForContextMenu(lvProducts);
+        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(MainActivity.this,"position: " + position,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        arrListProducts = productsObtainingWithJson();
+        //adapter.notifyDataSetChanged();
+        arrListProducts = adapter.update(arrListProducts);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveProducts();
     }
 
     @Override
@@ -181,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveProducts() {
-        arrListProducts = adapter.update(arrListProducts);
-
+        //arrListProducts = adapter.update(arrListProducts);
+        adapter.notifyDataSetChanged();
         productsConservationInJson();
     }
 
