@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private SortProductsController sortProductsController;
 
     private ListView lvProducts;
+    private TextView tvMessageEmptyListProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         initializationGlobalObject();
         settingListProducts();
+
+        adapter.notifyDataSetChanged();
     }
 
     private void initializationGlobalObject() {
         constants = new Constants();
+        arrListProducts = productsObtainingWithJson();
         adapter = new ProductAdapter(MainActivity.this, arrListProducts);
+        tvMessageEmptyListProducts = (TextView) findViewById(R.id.tvMessageEmptyListProducts);
+        tvMessageEmptyListProducts.setVisibility(View.GONE);
         sortProductsController = new SortProductsController();
         lvProducts = (ListView) findViewById(R.id.lvProducts);
     }
@@ -58,20 +64,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lvProducts.setAdapter(adapter);
         registerForContextMenu(lvProducts);
         lvProducts.setOnItemClickListener(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        arrListProducts = productsObtainingWithJson();
-        //adapter.notifyDataSetChanged();
-        arrListProducts = adapter.update(arrListProducts);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveProducts();
     }
 
     @Override
@@ -87,13 +79,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (item.getItemId()) {
             case R.id.contextMenuEditProduct:
                 intentProductActivityEdit(info.position);
+                saveProducts();
                 return true;
             case R.id.contextMenuRemoveProduct:
                 arrListProducts.remove(info.position);
-                adapter.notifyDataSetChanged();
+                saveProducts();
                 return true;
         }
-        saveProducts();
         return false;
     }
 
@@ -107,8 +99,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null)
             return;
-        arrListProducts = productsObtainingWithJson(data.getStringExtra(constants.
-                INTENT_EXTRA_NAME_PRODUCT_FOR_EDIT));
+        switch (requestCode) {
+            case 1:
+                arrListProducts.add(new Product(data.getStringExtra(constants.
+                        INTENT_EXTRA_NAME_NEW_PRODUCT), false));
+                break;
+            case 2:
+                arrListProducts.get(Integer.parseInt(data.getStringExtra(constants.
+                        INTENT_EXTRA_NAME_POSITION_FOR_EDIT))).
+                        setName(data.getStringExtra(constants.INTENT_EXTRA_NAME_EDITED_PRODUCT));
+                break;
+        }
+
         saveProducts();
     }
 
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onOptionsItemSelected(MenuItem item) {
             Toast toastListClear = Toast.makeText(MainActivity.this,
                     "Ваш список продуктів пустий ¯\\_(ツ)_/¯",
-                    Toast.LENGTH_LONG);
+                    Toast.LENGTH_SHORT);
         switch (item.getItemId()) {
             case R.id.menuAdd:
                 intentProductActivityAdd();
@@ -149,10 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             case R.id.menuNewList:
                 if (arrListProducts.isEmpty()) toastListClear.show();
-                else arrListProducts = new ArrayList<>();
-                break;
-            case R.id.menuSort:
-
+                else arrListProducts.clear();
                 break;
             case R.id.sortAz:
                 if (arrListProducts.isEmpty()) toastListClear.show();
@@ -186,7 +185,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void saveProducts() {
-        //arrListProducts = adapter.update(arrListProducts);
+        if (arrListProducts.isEmpty()) {
+            tvMessageEmptyListProducts.setVisibility(View.VISIBLE);
+            lvProducts.setVisibility(View.GONE);
+        } else {
+            tvMessageEmptyListProducts.setVisibility(View.GONE);
+            lvProducts.setVisibility(View.VISIBLE);
+        }
         adapter.notifyDataSetChanged();
         productsConservationInJson();
     }
@@ -195,11 +200,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         jsonManager = new JsonConservationObtainingProducts();
         return jsonManager.getProducts(this.getPreferences(Context.MODE_PRIVATE).
                 getString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, ""));
-    }
-
-    public ArrayList<Product> productsObtainingWithJson(String s) {
-        jsonManager = new JsonConservationObtainingProducts();
-        return jsonManager.getProducts(s);
     }
 
     public void productsConservationInJson() {
@@ -214,9 +214,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.chBoxStateProduct);
         TextView tvNameProduct = (TextView) view.findViewById(R.id.tvNameProduct);
-        Toast.makeText(MainActivity.this,"state: " + chBoxProduct.isChecked() + "\ntext: " + tvNameProduct.getText(),Toast.LENGTH_SHORT).show();
         if (arrListProducts.get(position).isPruchased()) arrListProducts.get(position).setPruchased(false);
         else arrListProducts.get(position).setPruchased(true);
-        adapter.notifyDataSetChanged();
+        saveProducts();
     }
 }

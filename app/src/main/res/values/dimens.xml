@@ -5,4 +5,5 @@
     <dimen name="text_size_item_product">20sp</dimen>
     <dimen name="chbox_size">24dp</dimen>
     <dimen name="padding_custom_item__list_products">6dp</dimen>
+    <dimen name="text_size_message_empty_list_products">30sp</dimen>
 </resources>

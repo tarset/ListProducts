@@ -84,14 +84,16 @@ public class ProductActivity extends AppCompatActivity {
         if (arrListProductsSelectedItem == -1) { //Якщо позиція не була передана в активність
             arrListProducts.add(new Product(edtNameProduct.getText().toString(), false));
             Intent intent = new Intent();
-            intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT_FOR_EDIT,
-                    jsonManager.setProducts(arrListProducts));
+            intent.putExtra(constants.INTENT_EXTRA_NAME_NEW_PRODUCT,
+                    edtNameProduct.getText().toString());
             setResult(RESULT_OK, intent);
         } else {
             Intent intent = new Intent();
             arrListProducts.get(arrListProductsSelectedItem).setName(edtNameProduct.getText().toString());
-            intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT_FOR_EDIT,
-                    jsonManager.setProducts(arrListProducts));
+            intent.putExtra(constants.INTENT_EXTRA_NAME_EDITED_PRODUCT,
+                    edtNameProduct.getText().toString());
+            intent.putExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT,
+                    String.valueOf(arrListProductsSelectedItem));
             setResult(RESULT_OK, intent);
         }
 

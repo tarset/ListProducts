@@ -10,6 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.dvdev.horodynskyjdemo.activities.MainActivity">
 
+    <TextView
+        android:textSize="@dimen/text_size_message_empty_list_products"
+        android:gravity="center"
+        android:text="@string/tv_message_empty_list_products"
+        android:id="@+id/tvMessageEmptyListProducts"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
     <ListView android:id="@+id/lvProducts"
         android:divider="@android:color/transparent"
         android:layout_weight="1"

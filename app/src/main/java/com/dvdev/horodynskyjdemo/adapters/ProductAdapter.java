@@ -58,10 +58,4 @@ public class ProductAdapter extends BaseAdapter {
 
         return view;
     }
-
-    public ArrayList<Product> update(ArrayList<Product> productsArrayList) {
-        this.arrListProducts = productsArrayList;
-        notifyDataSetChanged();
-        return productsArrayList;
-    }
 }
