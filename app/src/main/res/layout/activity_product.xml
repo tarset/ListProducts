@@ -30,14 +30,12 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/btnCancelActionNewProduct"
-            android:onClick="actionCancelNewItem"
             android:text="@string/btn_cancel_action_new_product"
             android:layout_weight="0.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnConfirmActionNewOrEditedProduct"
-            android:onClick="actionAddNewOrEditedItem"
             android:layout_weight="0.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />

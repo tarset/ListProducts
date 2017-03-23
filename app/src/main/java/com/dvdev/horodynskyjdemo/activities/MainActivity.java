@@ -212,8 +212,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CheckBox chBoxProduct = (CheckBox) view.findViewById(R.id.chBoxStateProduct);
-        TextView tvNameProduct = (TextView) view.findViewById(R.id.tvNameProduct);
         if (arrListProducts.get(position).isPruchased()) arrListProducts.get(position).setPruchased(false);
         else arrListProducts.get(position).setPruchased(true);
         saveProducts();

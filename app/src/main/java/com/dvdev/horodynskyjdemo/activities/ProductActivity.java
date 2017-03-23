@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
@@ -20,7 +21,7 @@ import com.dvdev.horodynskyjdemo.storage.JsonConservationObtainingProducts;
 
 import java.util.ArrayList;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
     private Constants constants;
     private JsonConservationObtainingProducts jsonManager;
 
@@ -29,6 +30,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private EditText edtNameProduct;
     private TextView tvMessageErrors;
+    private Button btnCancelActionNewProduct;
     private Button btnActionAddEditNewProduct;
 
     @Override
@@ -73,11 +75,10 @@ public class ProductActivity extends AppCompatActivity {
         tvMessageErrors = (TextView) findViewById(R.id.tvMessageErrors);
         tvMessageErrors.setVisibility(View.GONE);
         edtNameProduct = (EditText) findViewById(R.id.edtNameProduct);
+        btnCancelActionNewProduct = (Button) findViewById(R.id.btnCancelActionNewProduct);
+        btnCancelActionNewProduct.setOnClickListener(this);
         btnActionAddEditNewProduct = (Button) findViewById(R.id.btnConfirmActionNewOrEditedProduct);
-    }
-
-    public void actionCancelNewItem(View view) {
-        finish();
+        btnActionAddEditNewProduct.setOnClickListener(this);
     }
 
     private void actionsAddNewEditedItem() {
@@ -100,19 +101,27 @@ public class ProductActivity extends AppCompatActivity {
         finish();
     }
 
-    public void actionAddNewOrEditedItem(View view) {
-        boolean boolDoubleProduct = false;
-        for (Product product: arrListProducts)
-            if (product.getName().equals(edtNameProduct.getText().toString()))
-                boolDoubleProduct = true;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnCancelActionNewProduct:
+                finish();
+                break;
+            case R.id.btnConfirmActionNewOrEditedProduct:
+                boolean boolDoubleProduct = false;
+                for (Product product : arrListProducts)
+                    if (product.getName().equals(edtNameProduct.getText().toString()))
+                        boolDoubleProduct = true;
 
-        if (edtNameProduct.getText().toString().equals("")) { //Перевірка на дурачка
-            tvMessageErrors.setVisibility(View.VISIBLE);
-        } else if (boolDoubleProduct) { //перевірка на повторні дані
-            tvMessageErrors.setText(getString(R.string.tv_message_about_double_product));
-            tvMessageErrors.setVisibility(View.VISIBLE);
-        } else {
-            actionsAddNewEditedItem();
+                if (edtNameProduct.getText().toString().equals("")) { //Перевірка на дурачка
+                    tvMessageErrors.setVisibility(View.VISIBLE);
+                } else if (boolDoubleProduct) { //перевірка на повторні дані
+                    tvMessageErrors.setText(getString(R.string.tv_message_about_double_product));
+                    tvMessageErrors.setVisibility(View.VISIBLE);
+                } else {
+                    actionsAddNewEditedItem();
+                }
+                break;
         }
     }
 }
