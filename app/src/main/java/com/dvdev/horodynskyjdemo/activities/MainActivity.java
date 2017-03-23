@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public boolean onOptionsItemSelected(MenuItem item) {
             Toast toastListClear = Toast.makeText(MainActivity.this,
-                    "Ваш список продуктів пустий ¯\\_(ツ)_/¯",
+                    "Ваш список продуктів порожній ¯\\_(ツ)_/¯",
                     Toast.LENGTH_SHORT);
         switch (item.getItemId()) {
             case R.id.menuAdd:
