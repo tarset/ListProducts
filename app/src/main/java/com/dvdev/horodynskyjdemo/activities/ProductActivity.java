@@ -78,7 +78,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
                 getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT))).getName());
     }
 
-    @Override public void sendingAdditionToParent() {
+    @Override public void sendingToParentAddition() {
         Intent intent = new Intent();
         intent.putExtra(constants.INTENT_EXTRA_NAME_NEW_PRODUCT,
                 edtNameProduct.getText().toString());
@@ -86,7 +86,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         finish();
     }
 
-    @Override public void sendingEditsToParent() {
+    @Override public void sendingToParentEdits() {
         Intent intent = new Intent();
         intent.putExtra(constants.INTENT_EXTRA_NAME_EDITED_PRODUCT,
                 edtNameProduct.getText().toString());

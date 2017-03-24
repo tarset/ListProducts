@@ -41,11 +41,11 @@
     <item
         android:id="@+id/menuClearList"
         android:orderInCategory="3"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_clear_list" />
     <item
         android:id="@+id/menuNewList"
         android:orderInCategory="4"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/menu_new_list" />
 </menu>

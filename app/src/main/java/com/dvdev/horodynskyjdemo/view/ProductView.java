@@ -5,9 +5,9 @@ public interface ProductView {
 
     void setNamesActionBarButtonEdits();
 
-    void sendingAdditionToParent();
+    void sendingToParentAddition();
 
-    void sendingEditsToParent();
+    void sendingToParentEdits();
 
     void setProductEmptyError();
 

@@ -77,8 +77,8 @@ public class ProductPresenterImpl implements ProductPresenter {
     @Override
     public void onSuccess(String keyAction) {
         if (keyAction.equals(constants.INTENT_EXTRA_VALUE_ACTION_ADD))
-            productView.sendingAdditionToParent();
+            productView.sendingToParentAddition();
         if (keyAction.equals(constants.INTENT_EXTRA_VALUE_ACTION_EDIT))
-            productView.sendingEditsToParent();
+            productView.sendingToParentEdits();
     }
 }
