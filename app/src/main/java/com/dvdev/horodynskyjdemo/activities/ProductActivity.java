@@ -13,21 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
-import com.dvdev.horodynskyjdemo.models.Product;
-import com.dvdev.horodynskyjdemo.presenters.ProductPresenter;
-import com.dvdev.horodynskyjdemo.presenters.ProductPresenterImpl;
+import com.dvdev.horodynskyjdemo.controllers.ProductController;
+import com.dvdev.horodynskyjdemo.controllers.ProductControllerImpl;
 import com.dvdev.horodynskyjdemo.resources.Constants;
-import com.dvdev.horodynskyjdemo.storage.JsonConservationObtainingProducts;
 import com.dvdev.horodynskyjdemo.view.ProductView;
-
-import java.util.ArrayList;
 
 public class ProductActivity extends AppCompatActivity implements ProductView, View.OnClickListener {
 
     private Constants constants;
-    private ProductPresenter presenter;
-
-    private ArrayList<Product> productsArrayList;
+    private ProductController presenter;
 
     private EditText edtNameProduct;
     private Button btnProductValid;
@@ -42,10 +36,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         findViewById(R.id.btnProductCancel).setOnClickListener(this);
 
         constants = new Constants();
-        presenter = new ProductPresenterImpl(this);
-
-        productsArrayList = new JsonConservationObtainingProducts().getProducts(
-                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_PRODUCTS));
+        presenter = new ProductControllerImpl(this);
 
         presenter.setNamesActionBarButton(
                 getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT));
@@ -59,7 +50,6 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
             case R.id.btnProductValid:
                 presenter.calculationOfResults(
                         getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT),
-                        productsArrayList,
                         edtNameProduct.getText().toString());
                 break;
         }
@@ -74,34 +64,19 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         setTitleActivity(getString(R.string.label_activity_product_edit));
         btnProductValid.setText(getString(R.string.btn_confirm_action_new_or_edited_product_edit));
 
-        edtNameProduct.setText(productsArrayList.get(Integer.parseInt(
-                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT))).getName());
+        edtNameProduct.setText(getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_PRODUCT));
     }
 
-    @Override public void sendingToParentAddition() {
+    @Override public void sendingToParent() {
         Intent intent = new Intent();
-        intent.putExtra(constants.INTENT_EXTRA_NAME_NEW_PRODUCT,
+        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT,
                 edtNameProduct.getText().toString());
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    @Override public void sendingToParentEdits() {
-        Intent intent = new Intent();
-        intent.putExtra(constants.INTENT_EXTRA_NAME_EDITED_PRODUCT,
-                edtNameProduct.getText().toString());
-        intent.putExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT,
-                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT));
         setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override public void setProductEmptyError() {
         edtNameProduct.setError(getString(R.string.tv_message_about_empty));
-    }
-
-    @Override public void setProductDuplicateError() {
-        edtNameProduct.setError(getString(R.string.tv_message_about_duplicate));
     }
 
     @Override public void setTitleActivity(String title) {

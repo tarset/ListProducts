@@ -5,13 +5,9 @@ public interface ProductView {
 
     void setNamesActionBarButtonEdits();
 
-    void sendingToParentAddition();
-
-    void sendingToParentEdits();
+    void sendingToParent();
 
     void setProductEmptyError();
-
-    void setProductDuplicateError();
 
     void setTitleActivity(String title);
 }
