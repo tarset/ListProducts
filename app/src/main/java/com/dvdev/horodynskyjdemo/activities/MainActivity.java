@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -121,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 constants.INTENT_EXTRA_VALUE_ACTION_ADD);
         intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCTS,
                 jsonManager.setProducts(arrListProducts));
+        intent.putExtra(constants.INTENT_EXTRA_NAME_POSITION_FOR_EDIT,
+                String.valueOf(-1));
         startActivityForResult(intent, constants.ON_ACTIVITY_RESULT_ADD);
     }
 

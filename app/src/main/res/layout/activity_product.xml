@@ -16,26 +16,19 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_edt_name_product"
         android:inputType="text" />
-    <TextView
-        android:id="@+id/tvMessageErrors"
-        android:gravity="center"
-        android:textColor="@android:color/holo_red_light"
-        android:text="@string/tv_message_about_empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <LinearLayout
         android:weightSum="1"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/btnCancelActionNewProduct"
+            android:id="@+id/btnProductCancel"
             android:text="@string/btn_cancel_action_new_product"
             android:layout_weight="0.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/btnConfirmActionNewOrEditedProduct"
+            android:id="@+id/btnProductValid"
             android:layout_weight="0.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
