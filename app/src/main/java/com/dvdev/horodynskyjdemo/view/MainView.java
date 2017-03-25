@@ -7,7 +7,7 @@ public interface MainView {
 
     void updateAdapter();
 
-    void intentProductActivityEdit(int position);
+    void intentProductActivityEdit(String nameProduct);
 
     void intentProductActivityAdd();
 

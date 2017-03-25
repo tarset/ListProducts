@@ -4,6 +4,7 @@ package com.dvdev.horodynskyjdemo.models;
  * Об'єкт даних для пункта у ListView
  */
 public class Product {
+
     private String name;
     private boolean pruchased;
 

@@ -14,14 +14,13 @@ import android.widget.TextView;
 
 import com.dvdev.horodynskyjdemo.R;
 import com.dvdev.horodynskyjdemo.controllers.ProductController;
-import com.dvdev.horodynskyjdemo.controllers.ProductControllerImpl;
 import com.dvdev.horodynskyjdemo.resources.Constants;
 import com.dvdev.horodynskyjdemo.view.ProductView;
 
 public class ProductActivity extends AppCompatActivity implements ProductView, View.OnClickListener {
 
     private Constants constants;
-    private ProductController presenter;
+    private ProductController controller;
 
     private EditText edtNameProduct;
     private Button btnProductValid;
@@ -36,23 +35,20 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         findViewById(R.id.btnProductCancel).setOnClickListener(this);
 
         constants = new Constants();
-        presenter = new ProductControllerImpl(this);
+        controller = new ProductController(this);
 
-        presenter.setNamesActionBarButton(
+        controller.setNamesActionBarButton(
                 getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT));
     }
 
     @Override public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnProductCancel:
-                finish();
-                break;
-            case R.id.btnProductValid:
-                presenter.calculationOfResults(
-                        getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT),
-                        edtNameProduct.getText().toString());
-                break;
-        }
+        controller.onClick(v.getId());
+    }
+
+    @Override public void setCalculationOfResults() {
+        controller.calculationOfResults(
+                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON),
+                edtNameProduct.getText().toString());
     }
 
     @Override public void setNamesActionBarButtonAddition() {
@@ -72,11 +68,15 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT,
                 edtNameProduct.getText().toString());
         setResult(RESULT_OK, intent);
-        finish();
+        finishActivity();
     }
 
     @Override public void setProductEmptyError() {
         edtNameProduct.setError(getString(R.string.tv_message_about_empty));
+    }
+
+    @Override public void setProductDuplicateError() {
+        edtNameProduct.setError(getString(R.string.tv_message_about_duplicate));
     }
 
     @Override public void setTitleActivity(String title) {
@@ -92,5 +92,9 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         textView.setTypeface(null, Typeface.BOLD);
         getSupportActionBar().setDisplayOptions(getSupportActionBar().DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(textView);
+    }
+
+    @Override public void finishActivity() {
+        finish();
     }
 }

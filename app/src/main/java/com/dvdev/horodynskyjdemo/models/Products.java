@@ -5,9 +5,10 @@ import com.dvdev.horodynskyjdemo.storage.JsonConservationObtainingProducts;
 import java.util.ArrayList;
 
 public class Products {
+
     private ArrayList<Product> listProducts;
 
-    JsonConservationObtainingProducts jsonManager;
+    private JsonConservationObtainingProducts jsonManager;
 
     public Products() {
         listProducts = new ArrayList<>();
@@ -16,10 +17,6 @@ public class Products {
 
     public ArrayList<Product> getListProducts() {
         return listProducts;
-    }
-
-    public void setListProducts(ArrayList<Product> listProducts) {
-        this.listProducts = listProducts;
     }
 
     public String convertToJson() {

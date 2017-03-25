@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.util.ArrayList;
 
 public class JsonConservationObtainingProducts {
+
     private JSONObject jsonObjProducts;
     private JSONObject jsonObjProduct;
     private JSONArray jsonArrNameProduct;

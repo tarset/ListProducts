@@ -5,6 +5,7 @@ import com.dvdev.horodynskyjdemo.models.Product;
 import java.util.Comparator;
 
 public class SortProductsController {
+
     public Comparator<Product> sortAZ() {
         return new Comparator<Product>() {
             @Override

@@ -20,22 +20,20 @@ import com.dvdev.horodynskyjdemo.adapters.ProductAdapter;
 import com.dvdev.horodynskyjdemo.models.Product;
 import com.dvdev.horodynskyjdemo.models.Products;
 import com.dvdev.horodynskyjdemo.controllers.MainController;
-import com.dvdev.horodynskyjdemo.controllers.MainControllerImpl;
 import com.dvdev.horodynskyjdemo.resources.Constants;
 import com.dvdev.horodynskyjdemo.view.MainView;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
+
     private Products products;
     private Constants constants;
     private MainController controller;
 
     private BaseAdapter adapter;
     private Toast toast;
-
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
+    private SharedPreferences.Editor sharedPrefEditor;
 
     private ListView lvProducts;
     private TextView tvMessageEmptyListProducts;
@@ -46,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
         constants = new Constants();
         products = new Products();
-        products.convertWithJson(getListProductsWithStorage());
+        controller = new MainController(this, products);
 
-        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
-
+        sharedPrefEditor = this.getPreferences(Context.MODE_PRIVATE).edit();
         toast = Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
 
         tvMessageEmptyListProducts = (TextView) findViewById(R.id.tvMessageEmptyListProducts);
@@ -61,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         lvProducts.setOnItemClickListener(this);
         registerForContextMenu(lvProducts);
 
-        controller = new MainControllerImpl(this, products);
-
         controller.switchVisibleListProducts();
+    }
+
+    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        controller.onItemClick(position);
     }
 
     @Override public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -82,6 +80,31 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         return true;
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        controller.onOptionsItemSelected(item.getItemId());
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override public void intentProductActivityAdd() {
+        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                constants.INTENT_EXTRA_VALUE_ACTION_ADD);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
+                controller.getListProductsInJson());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override public void intentProductActivityEdit(String nameProduct) {
+        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
+        intent.putExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
+                controller.getListProductsInJson());
+        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT, nameProduct);
+        startActivityForResult(intent, 2);
+    }
+
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null)
             return;
@@ -89,46 +112,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         controller.onActivityResult(requestCode, data.getStringExtra(constants.INTENT_EXTRA_NAME_PRODUCT));
     }
 
-    @Override public void intentProductActivityAdd() {
-        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                constants.INTENT_EXTRA_VALUE_ACTION_ADD);
-        startActivityForResult(intent, 1);
-    }
-
-    @Override public void intentProductActivityEdit(int position) {
-        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT,
-                products.getListProducts().get(position).getName());
-        startActivityForResult(intent, 2);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        controller.onOptionsItemSelected(item.getItemId());
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void addTestData(View view) {
-        String[] tmp = {"Молоко", "Печиво", "Багет", "Мука", "Морозиво", "Цукор", "Картопля",
-                "Батон", "Риба", "Гриби", "Огірки", "Спагетті", "Вода", "Свинина",
-                "Курячі стегна", "Майонез", "Помідори", "Сіль"};
-        for (String s : tmp)
-            products.getListProducts().add(new Product(s, new Random().nextBoolean()));
-
-
-        updateAdapter();
-        saveProductsInStorage();
-    }
-
     @Override public void saveProductsInStorage() {
         setListProductsInStorage(products.convertToJson());
-    }
-
-    @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        controller.onItemClick(position);
     }
 
     @Override public void showToast(String toastMessage) {
@@ -146,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     }
 
     @Override public void setListProductsInStorage(String json) {
-        editor.putString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, json);
-        editor.apply();
+        sharedPrefEditor.putString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, json);
+        sharedPrefEditor.apply();
     }
 
     @Override public void setListViewVisible() {
@@ -158,5 +143,17 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     @Override public void setListViewGone() {
         tvMessageEmptyListProducts.setVisibility(View.VISIBLE);
         lvProducts.setVisibility(View.GONE);
+    }
+
+    public void addTestData(View view) {
+        String[] tmp = {"Молоко", "Печиво", "Багет", "Мука", "Морозиво", "Цукор", "Картопля",
+                "Батон", "Риба", "Гриби", "Огірки", "Спагетті", "Вода", "Свинина",
+                "Курячі стегна", "Майонез", "Помідори", "Сіль"};
+        for (String s : tmp)
+            products.getListProducts().add(new Product(s, new Random().nextBoolean()));
+
+        setListViewVisible();
+        updateAdapter();
+        saveProductsInStorage();
     }
 }
