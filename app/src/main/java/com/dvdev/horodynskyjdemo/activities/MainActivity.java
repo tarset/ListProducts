@@ -28,11 +28,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
 
     private Products products;
-    private Constants constants;
     private MainController controller;
 
     private BaseAdapter adapter;
-    private Toast toast;
     private SharedPreferences.Editor sharedPrefEditor;
 
     private ListView lvProducts;
@@ -42,12 +40,10 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        constants = new Constants();
         products = new Products();
         controller = new MainController(this, products);
 
         sharedPrefEditor = this.getPreferences(Context.MODE_PRIVATE).edit();
-        toast = Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
 
         tvMessageEmptyListProducts = (TextView) findViewById(R.id.tvMessageEmptyListProducts);
         tvMessageEmptyListProducts.setVisibility(View.GONE);
@@ -88,20 +84,20 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override public void intentProductActivityAdd() {
         Intent intent = new Intent(MainActivity.this, ProductActivity.class);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                constants.INTENT_EXTRA_VALUE_ACTION_ADD);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                Constants.INTENT_EXTRA_VALUE_ACTION_ADD);
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
                 controller.getListProductsInJson());
         startActivityForResult(intent, 1);
     }
 
     @Override public void intentProductActivityEdit(String nameProduct) {
         Intent intent = new Intent(MainActivity.this, ProductActivity.class);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
-                constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
-        intent.putExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT,
+                Constants.INTENT_EXTRA_VALUE_ACTION_EDIT);
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON,
                 controller.getListProductsInJson());
-        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT, nameProduct);
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_PRODUCT, nameProduct);
         startActivityForResult(intent, 2);
     }
 
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         if (data == null)
             return;
 
-        controller.onActivityResult(requestCode, data.getStringExtra(constants.INTENT_EXTRA_NAME_PRODUCT));
+        controller.onActivityResult(requestCode, data.getStringExtra(Constants.INTENT_EXTRA_NAME_PRODUCT));
     }
 
     @Override public void saveProductsInStorage() {
@@ -117,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     }
 
     @Override public void showToast(String toastMessage) {
-        toast.setText(toastMessage);
-        toast.show();
+        Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void updateAdapter() {
@@ -127,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override public String getListProductsWithStorage() {
         return this.getPreferences(Context.MODE_PRIVATE).
-                getString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, "");
+                getString(Constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, "");
     }
 
     @Override public void setListProductsInStorage(String json) {
-        sharedPrefEditor.putString(constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, json);
+        sharedPrefEditor.putString(Constants.SHARED_PREFERENCES_KEY_STORAGE_PRODUCTS, json);
         sharedPrefEditor.apply();
     }
 

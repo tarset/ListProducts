@@ -19,7 +19,6 @@ import com.dvdev.horodynskyjdemo.view.ProductView;
 
 public class ProductActivity extends AppCompatActivity implements ProductView, View.OnClickListener {
 
-    private Constants constants;
     private ProductController controller;
 
     private EditText edtNameProduct;
@@ -34,11 +33,10 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         btnProductValid.setOnClickListener(this);
         findViewById(R.id.btnProductCancel).setOnClickListener(this);
 
-        constants = new Constants();
         controller = new ProductController(this);
 
         controller.setNamesActionBarButton(
-                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT));
+                getIntent().getStringExtra(Constants.INTENT_EXTRA_NAME_FOR_SELECT_ACTION_ADD_OR_EDIT));
     }
 
     @Override public void onClick(View v) {
@@ -47,7 +45,7 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
 
     @Override public void setCalculationOfResults() {
         controller.calculationOfResults(
-                getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON),
+                getIntent().getStringExtra(Constants.INTENT_EXTRA_NAME_LIST_PRODUCTS_IN_JSON),
                 edtNameProduct.getText().toString());
     }
 
@@ -60,12 +58,12 @@ public class ProductActivity extends AppCompatActivity implements ProductView, V
         setTitleActivity(getString(R.string.label_activity_product_edit));
         btnProductValid.setText(getString(R.string.btn_confirm_action_new_or_edited_product_edit));
 
-        edtNameProduct.setText(getIntent().getStringExtra(constants.INTENT_EXTRA_NAME_PRODUCT));
+        edtNameProduct.setText(getIntent().getStringExtra(Constants.INTENT_EXTRA_NAME_PRODUCT));
     }
 
     @Override public void sendingToParent() {
         Intent intent = new Intent();
-        intent.putExtra(constants.INTENT_EXTRA_NAME_PRODUCT,
+        intent.putExtra(Constants.INTENT_EXTRA_NAME_PRODUCT,
                 edtNameProduct.getText().toString());
         setResult(RESULT_OK, intent);
         finishActivity();
