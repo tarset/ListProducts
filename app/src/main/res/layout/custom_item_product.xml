@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linLayProduct"
     android:orientation="horizontal"
-    android:padding="@dimen/padding_custom_item__list_products"
     android:layout_width="match_parent"
-    android:layout_margin="@dimen/activity_vertical_margin"
+    android:layout_margin="@dimen/custom_item_product_margin"
     android:layout_height="match_parent">
 
     <CheckBox
@@ -13,14 +12,14 @@
         android:focusableInTouchMode="false"
         android:layout_gravity="center_vertical"
         android:id="@+id/chBoxStateProduct"
-        android:layout_width="@dimen/chbox_size"
-        android:layout_height="@dimen/chbox_size"
+        android:layout_width="@dimen/custom_item_product_chbox_size"
+        android:layout_height="@dimen/custom_item_product_chbox_size"
         android:button="@null"
         android:background="?android:attr/listChoiceIndicatorMultiple" />
 
     <TextView
         android:layout_gravity="center_vertical"
-        android:textSize="@dimen/text_size_item_product"
+        android:textSize="@dimen/custom_item_product_text_size_item_product"
         android:id="@+id/tvNameProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
